@@ -1,0 +1,2944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enablement Learning: ART Journey — Your Learning Map</title>
+<style>
+:root {
+  --bts-charcoal: #24282b;
+  --bts-magenta: #ca1c68;
+  --bts-magenta-mid: #ea5f84;
+  --bts-magenta-light: #f4adb9;
+  --bts-emerald: #1d7279;
+  --bts-emerald-mid: #0db4ab;
+  --bts-emerald-light: #b0dcd9;
+  --bts-purple: #4c3480;
+  --bts-purple-mid: #826daa;
+  --bts-purple-light: #b6abcf;
+  --bts-blue: #1c4c87;
+  --bts-blue-mid: #6cbee5;
+  --bts-orange: #e63f50;
+  --bts-grey-light: #eaeef1;
+  --bts-grey-mid: #a2a5a8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bts-charcoal);
+  color: white;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: #1a1d1f;
+  padding: 14px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.header-center {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  pointer-events: auto;
+}
+.bts-logo { display: flex; align-items: center; gap: 9px; }
+.bts-discs { display: flex; gap: 3px; align-items: center; }
+.disc { width: 12px; height: 12px; border-radius: 50%; background: var(--bts-magenta); }
+.disc.sm { width: 8px; height: 8px; }
+.bts-name { color: white; font-size: 17px; font-weight: 700; letter-spacing: 2px; }
+.header-sub { color: rgba(255,255,255,0.7); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+/* ── NAV ── */
+.nav-tabs {
+  display: flex;
+  background: #1e2225;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-tab {
+  padding: 13px 26px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  user-select: none;
+}
+.nav-tab:hover { color: rgba(255,255,255,0.7); }
+.nav-tab.active { color: white; border-bottom-color: var(--bts-magenta); }
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ══════════════════════════════════
+   JOURNEY MAP SCREEN
+══════════════════════════════════ */
+.journey-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 36px 36px 60px;
+}
+
+.journey-intro { margin-bottom: 32px; }
+.journey-intro h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.journey-intro p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+  max-width: 600px;
+}
+
+/* Legend */
+.legend-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+}
+.leg-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: white; font-weight: 500; }
+.leg-dot { width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0; }
+
+/* Month blocks */
+.month-block { margin-bottom: 0; }
+
+.month-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.month-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: white;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.month-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.month-line { flex: 1; height: 1px; background: rgba(255,255,255,0.07); }
+.month-tag { font-size: 9px; color: rgba(255,255,255,0.65); letter-spacing: 1.5px; text-transform: uppercase; }
+
+/* Workshops row */
+.workshops-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-left: 42px;
+  margin-bottom: 5px;
+}
+.workshops-row.two-col { grid-template-columns: 1fr 1fr; }
+.workshops-row.one-col { grid-template-columns: 1fr; }
+
+/* New 2/3 + arrow + 1/3 workshop-lab row */
+.ws-lab-row {
+  display: grid;
+  grid-template-columns: 2fr auto 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin-left: 42px;
+  margin-bottom: 6px;
+}
+/* CTW solo row - full width centered, same width as workshop card */
+.ctw-solo-row {
+  margin-left: 42px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: center;
+}
+.ctw-solo-row .ws-card { width: 66.666%; }
+/* Agents 101 Coming Q1 banner */
+.agents-banner {
+  margin-left: 42px; margin-top: 20px;
+  border: 2px dashed rgba(202,28,104,0.4);
+  border-radius: 9px; padding: 14px 18px;
+  background: rgba(202,28,104,0.06);
+}
+.agents-banner-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #ca1c68; margin-bottom: 4px; }
+.agents-banner-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 5px; }
+.agents-banner-desc { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+.ws-lab-arrow {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 7px; flex-shrink: 0;
+}
+.ws-lab-arrow-icon {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.lab-card {
+  border-radius: 9px;
+  padding: 11px 13px;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: flex; flex-direction: column; justify-content: space-between;
+  opacity: 0.88;
+  position: relative; overflow: hidden;
+}
+.lab-card::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 20px; height: 20px;
+  border-radius: 0 9px 0 20px;
+  background: rgba(255,255,255,0.1);
+}
+.lab-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  filter: brightness(1.08);
+  opacity: 1;
+}
+.lab-badge { font-size: 8px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+.lab-name { font-size: 11px; font-weight: 700; color: white; line-height: 1.3; flex: 1; margin-bottom: 6px; }
+.lab-note { font-size: 9px; color: rgba(255,255,255,0.7); line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.18); padding-top: 6px; }
+.ws-async-line { font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.15); }
+
+/* Workshop card */
+.ws-card {
+  border-radius: 9px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.ws-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 24px; height: 24px;
+  border-radius: 0 9px 0 24px;
+  background: rgba(255,255,255,0.1);
+}
+.ws-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  filter: brightness(1.08);
+}
+.ws-card.active-card {
+  box-shadow: 0 0 0 2px white, 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* Track color variants */
+.w-kick    { background: #0db4ab; }
+.w-ai      { background: var(--bts-magenta); }
+.w-rs      { background: var(--bts-emerald); }
+.w-tg      { background: var(--bts-purple); }
+.w-ai-tg   { background: linear-gradient(135deg, var(--bts-magenta) 30%, var(--bts-purple) 100%); }
+.w-ai-rs   { background: linear-gradient(135deg, var(--bts-emerald) 20%, var(--bts-magenta) 100%); }
+.w-tg-rs   { background: linear-gradient(135deg, var(--bts-purple) 30%, var(--bts-emerald) 100%); }
+.w-cap     { background: linear-gradient(135deg, var(--bts-magenta) 0%, var(--bts-emerald) 50%, var(--bts-purple) 100%); }
+
+.ws-half  { font-size: 8px; color: rgba(255,255,255,0.5); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+.ws-name  { font-size: 13px; color: white; font-weight: 700; line-height: 1.3; margin-bottom: 5px; }
+.ws-meta  { font-size: 10px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+.ws-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 2px 8px;
+  font-size: 8px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+  margin-top: 6px;
+  letter-spacing: 0.3px;
+}
+
+/* Office hours bar */
+.oh-bar {
+  margin-left: 42px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  background: #0db4ab;
+  border-radius: 7px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: filter 0.15s;
+  opacity: 0.75;
+}
+.oh-bar:hover { filter: brightness(1.1); opacity: 0.9; }
+.oh-bar-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.65); }
+.oh-bar-name { font-size: 11px; font-weight: 600; color: white; }
+.oh-bar-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.4); }
+
+/* Connector */
+.connector {
+  margin-left: 57px;
+  height: 18px;
+  width: 2px;
+  background: rgba(255,255,255,0.07);
+  position: relative;
+}
+.connector::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid rgba(255,255,255,0.1);
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+  transform: rotate(45deg);
+}
+
+/* ── DETAIL PANEL ── */
+.detail-panel {
+  position: fixed;
+  right: 0; top: 0;
+  width: 420px;
+  height: 100vh;
+  background: #1a1d1f;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+.detail-panel.open { transform: translateX(0); }
+
+.panel-header {
+  padding: 22px 22px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  position: relative;
+}
+.panel-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.panel-close:hover { background: rgba(255,255,255,0.14); }
+.panel-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px; color: white;
+  display: inline-block; margin-bottom: 10px;
+}
+.panel-num { font-size: 10px; color: rgba(255,255,255,0.8); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; font-weight: 600; }
+.panel-title { font-size: 19px; font-weight: 700; color: white; line-height: 1.3; margin-bottom: 5px; }
+.panel-meta { font-size: 11px; color: rgba(255,255,255,0.8); }
+
+.panel-body { flex: 1; overflow-y: auto; padding: 20px 22px; }
+.p-section { margin-bottom: 20px; }
+.p-section h4 {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.75); margin-bottom: 8px;
+}
+.p-section p { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.7); }
+
+.survey-box {
+  background: rgba(202,28,104,0.12);
+  border: 1px solid rgba(202,28,104,0.75);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.survey-box h4 { color: var(--bts-magenta-mid) !important; }
+.survey-quote {
+  background: rgba(255,255,255,0.05);
+  border-left: 2px solid var(--bts-magenta-mid);
+  padding: 7px 11px;
+  margin-top: 8px;
+  border-radius: 0 5px 5px 0;
+  font-size: 11px;
+  font-style: italic;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+}
+.stat-chips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
+.stat-chip {
+  background: var(--bts-magenta);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.modal-bg {
+  display: none;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 150;
+}
+.modal-bg.open { display: block; }
+
+/* ══════════════════════════════════
+   SURVEY INSIGHTS SCREEN
+══════════════════════════════════ */
+.insights-wrap { max-width: 860px; margin: 0 auto; padding: 36px 36px 80px; }
+
+.insights-intro { margin-bottom: 36px; }
+.insights-intro h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.insights-intro p { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 580px; }
+.brene-q { margin-top: 12px; font-style: italic; color: var(--bts-magenta-mid); font-size: 24px; border-left: 2px solid var(--bts-magenta); padding-left: 12px; line-height: 1.4; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  margin-bottom: 36px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.stat-box { padding: 20px 16px; background: rgba(255,255,255,0.04); text-align: center; }
+.stat-n { font-size: 36px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+.stat-l { font-size: 9px; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 1px; }
+
+.insights-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 48px; }
+.insight-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 22px;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.insight-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+}
+.insight-card.m::before { background: var(--bts-magenta); }
+.insight-card.e::before { background: var(--bts-emerald); }
+.insight-card.p::before { background: var(--bts-purple); }
+.insight-card.o::before { background: #0db4ab; }
+.insight-card.b::before { background: var(--bts-blue); }
+.insight-card:hover { background: rgba(255,255,255,0.06); }
+
+.ic-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.ic-num { font-size: 44px; font-weight: 900; line-height: 1; }
+.ic-num.m { color: var(--bts-magenta); }
+.ic-num.e { color: var(--bts-emerald-mid); }
+.ic-num.p { color: var(--bts-purple-mid); }
+.ic-num.o { color: var(--bts-orange); }
+.ic-num.b { color: var(--bts-blue-mid); }
+.ic-arrow { font-size: 16px; color: rgba(255,255,255,0.65); transition: transform 0.2s; margin-top: 4px; }
+.insight-card.open .ic-arrow { transform: rotate(90deg); }
+.insight-card h3 { font-size: 14px; font-weight: 700; color: white; margin: 8px 0 4px; }
+.insight-card .sub { font-size: 16px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+
+.ic-expand { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.07); }
+.insight-card.open .ic-expand { display: block; }
+
+/* Bar chart */
+.bar-chart { margin-top: 10px; }
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; cursor: pointer; border-radius: 6px; padding: 4px 4px 4px 0; transition: background 0.15s; }
+.bar-row:hover { background: rgba(255,255,255,0.05); }
+.bar-row:hover .bar-lbl { color: white; }
+.bar-lbl { font-size: 15px; color: rgba(255,255,255,0.85); width: 280px; min-width: 280px; max-width: 280px; line-height: 1.3; font-weight: 500; }
+.bar-lbl-link { cursor: pointer; border-bottom: 1px dashed rgba(255,255,255,0.3); transition: color 0.15s, border-color 0.15s; }
+.bar-lbl-link:hover { color: white; border-bottom-color: var(--bts-magenta-mid); }
+.bar-track { flex: 1; background: rgba(255,255,255,0.07); border-radius: 4px; height: 28px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; }
+.bar-pct { font-size: 13px; font-weight: 700; color: white; }
+
+/* Quote walls */
+.quote-wall { columns: 2; gap: 10px; margin-top: 10px; }
+.q-pill {
+  display: inline-block; width: 100%;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 10px 13px;
+  font-size: 13px;
+  color: white;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  break-inside: avoid;
+  border-left: 3px solid rgba(255,255,255,0.2);
+}
+.q-pill.en { background: rgba(13,180,171,0.15); border-left: 3px solid var(--bts-emerald-mid); }
+.q-pill.sl { background: rgba(230,63,80,0.15); border-left: 3px solid var(--bts-orange); }
+.q-pill.sk { background: rgba(130,109,170,0.15); border-left: 3px solid var(--bts-purple-mid); }
+.q-pill.lrn { background: rgba(108,190,229,0.15); border-left: 3px solid var(--bts-blue-mid); }
+
+/* Connect button */
+.connect-btn {
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s;
+  letter-spacing: 0.3px;
+}
+.connect-btn:hover { background: rgba(255,255,255,0.13); }
+.connect-btn.lit { background: #0db4ab; color: white; }
+
+/* Notice card on journey map */
+.notice-card {
+  display: none;
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1d1f;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-left: 4px solid var(--bts-orange);
+  border-radius: 10px;
+  padding: 16px 20px;
+  max-width: 580px;
+  width: calc(100% - 48px);
+  z-index: 90;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  animation: slideUp 0.25s ease;
+}
+.notice-card.vis { display: flex; align-items: flex-start; gap: 12px; }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.notice-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--bts-orange); margin-bottom: 6px;
+}
+.notice-text { font-size: 14px; color: white; line-height: 1.65; flex: 1; }
+.notice-close {
+  background: rgba(255,255,255,0.08); border: none;
+  width: 24px; height: 24px; border-radius: 50%;
+  color: white; font-size: 12px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.notice-close:hover { background: rgba(255,255,255,0.15); }
+
+/* Learn style pills */
+.learn-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin-top: 10px; }
+.learn-pill { border-radius: 7px; padding: 10px 8px; text-align: center; }
+.learn-pill .ln { font-size: 20px; font-weight: 900; display: block; margin-bottom: 3px; }
+.learn-pill .lt { font-size: 10px; font-weight: 600; line-height: 1.3; }
+
+/* Donut */
+.donut-row { display: flex; align-items: center; gap: 20px; margin-top: 10px; }
+.donut-leg { flex: 1; }
+.dl-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.dl-clickable { cursor: pointer; padding: 6px 8px; border-radius: 6px; transition: background 0.15s; }
+.dl-clickable:hover { background: rgba(255,255,255,0.08); }
+.dl-arrow { font-size: 12px; color: rgba(255,255,255,0.3); margin-left: 4px; }
+.dl-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.dl-label { font-size: 15px; color: rgba(255,255,255,0.85); flex: 1; font-weight: 500; }
+.dl-pct { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); }
+
+/* ══════════════════════════════════
+   PERSONAS SCREEN
+══════════════════════════════════ */
+.personas-wrap { max-width: 860px; margin: 0 auto; padding: 36px 36px 80px; }
+.personas-intro { margin-bottom: 28px; }
+.personas-intro h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.personas-intro p { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 580px; }
+
+.persona-cards-row {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.p-card {
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 16px 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  background: rgba(255,255,255,0.03);
+}
+.p-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.65); }
+.p-card.selected { border-color: var(--bts-blue-mid); background: rgba(28,76,135,0.2); box-shadow: 0 0 0 2px rgba(108,190,229,0.2); }
+.p-icon { font-size: 26px; margin-bottom: 7px; }
+.p-name { font-size: 11px; font-weight: 700; color: white; margin-bottom: 3px; line-height: 1.3; }
+.p-tag { font-size: 9px; color: rgba(255,255,255,0.8); line-height: 1.4; }
+
+.persona-detail {
+  display: none;
+  background: rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.persona-detail.vis { display: block; }
+.pd-header { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 10px; }
+.pd-icon { font-size: 36px; }
+.pd-text h2 { font-size: 20px; font-weight: 700; color: white; margin-bottom: 3px; }
+.pd-text p { font-size: 14px; color: rgba(255,255,255,0.85); font-style: italic; }
+.pd-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 0; max-height: 60px; overflow: hidden; position: relative; }
+.pd-desc::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 30px; background: linear-gradient(transparent, rgba(36,40,43,0.95)); }
+.pd-desc-toggle { font-size: 11px; color: rgba(255,255,255,0.4); cursor: pointer; margin-bottom: 22px; margin-top: 4px; display: inline-block; }
+.pd-desc-toggle:hover { color: rgba(255,255,255,0.7); }
+.pd-desc.expanded { max-height: none; }
+.pd-desc.expanded::after { display: none; }
+
+.pd-sessions-hero {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 20px 20px 16px;
+  margin-bottom: 0;
+}
+.pd-chips-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 14px; letter-spacing: 0; text-transform: none; }
+.pd-chips { display: flex; flex-wrap: wrap; gap: 9px; }
+.pd-chip {
+  font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 24px; cursor: pointer; transition: all 0.15s;
+}
+.pd-chip:hover { filter: brightness(1.2); transform: scale(1.03); }
+.chip-ai { background: rgba(202,28,104,0.55); color: white; border: 1px solid rgba(202,28,104,0.7); }
+.chip-rs { background: rgba(29,114,121,0.55); color: white; border: 1px solid rgba(29,114,121,0.7); }
+.chip-tg { background: rgba(76,52,128,0.55); color: white; border: 1px solid rgba(76,52,128,0.7); }
+.chip-co { background: rgba(13,180,171,0.45); color: white; border: 1px solid rgba(13,180,171,0.6); }
+
+.map-btn {
+  background: var(--bts-blue);
+  color: white; border: none;
+  font-size: 12px; font-weight: 600;
+  padding: 10px 20px; border-radius: 7px;
+  cursor: pointer; transition: background 0.2s;
+}
+.map-btn:hover { background: #1a4a7a; }
+
+/* Bucket sections */
+.bucket-section { margin-bottom: 24px; }
+.bucket-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 14px;
+}
+.bucket-icon { font-size: 18px; }
+.bucket-title { font-size: 14px; font-weight: 700; }
+.bucket-subtitle { font-size: 12px; color: rgba(255,255,255,0.45); font-style: italic; }
+.bucket-b1 .bucket-title { color: #f0c040; }
+.bucket-b2 .bucket-title { color: rgba(255,255,255,0.9); }
+.bucket-b3 .bucket-title { color: #a2a5a8; }
+.bucket-b1 { border-left: 3px solid #f0c040; padding-left: 14px; }
+.bucket-b2 { border-left: 3px solid rgba(255,255,255,0.6); padding-left: 14px; }
+.bucket-b3 { border-left: 3px solid #a2a5a8; padding-left: 14px; }
+
+/* Vertical session cards — wider than tall */
+.session-stack { display: flex; flex-direction: column; gap: 8px; }
+
+.vcard { border-radius: 9px; overflow: hidden; cursor: pointer; }
+.vcard-front {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0;
+  border-radius: 9px;
+  transition: filter 0.15s;
+}
+.vcard-front:hover { filter: brightness(1.08); }
+.vcard.open .vcard-front { border-radius: 9px 9px 0 0; }
+
+/* Color strip on left */
+.vcard-strip { width: 6px; align-self: stretch; flex-shrink: 0; border-radius: 9px 0 0 9px; }
+.fc-ai .vcard-strip, .vcard-strip.fc-ai { background: var(--bts-magenta); }
+.fc-rs .vcard-strip, .vcard-strip.fc-rs { background: var(--bts-emerald); }
+.fc-tg .vcard-strip, .vcard-strip.fc-tg { background: var(--bts-purple); }
+.fc-ai-tg .vcard-strip, .vcard-strip.fc-ai-tg { background: linear-gradient(180deg, var(--bts-magenta), var(--bts-purple)); }
+.fc-ai-rs .vcard-strip, .vcard-strip.fc-ai-rs { background: linear-gradient(180deg, var(--bts-emerald), var(--bts-magenta)); }
+.fc-tg-rs .vcard-strip, .vcard-strip.fc-tg-rs { background: linear-gradient(180deg, var(--bts-purple), var(--bts-emerald)); }
+.fc-cap .vcard-strip, .vcard-strip.fc-cap { background: linear-gradient(180deg, var(--bts-magenta), var(--bts-emerald), var(--bts-purple)); }
+.fc-oh .vcard-strip, .vcard-strip.fc-oh { background: #0db4ab; }
+
+.vcard-body { background: rgba(255,255,255,0.06); padding: 12px 16px; }
+.vcard-num { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 3px; }
+.vcard-name { font-size: 14px; font-weight: 700; color: white; line-height: 1.3; margin-bottom: 5px; }
+.vcard-purpose { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+.vcard-arrow { padding: 12px 16px; background: rgba(255,255,255,0.06); font-size: 13px; color: rgba(255,255,255,0.35); transition: transform 0.2s; white-space: nowrap; }
+.vcard.open .vcard-arrow { transform: rotate(90deg); }
+
+.vcard-back {
+  display: none;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-top: none;
+  border-radius: 0 0 9px 9px;
+  padding: 14px 16px 14px 22px;
+}
+.vcard.open .vcard-back { display: block; }
+.vcard-why-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--bts-magenta-mid); margin-bottom: 8px; }
+.vcard-why-text { font-size: 13px; color: white; line-height: 1.65; }
+
+/* Inline session card on persona page */
+.persona-session-card {
+  display: none;
+  margin-top: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  animation: slideDown 0.22s ease;
+}
+.persona-session-card.vis { display: block; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.psc-header {
+  padding: 14px 18px 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.psc-header-left { flex: 1; }
+.psc-badge {
+  font-size: 8px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 2px 9px; border-radius: 20px; color: white;
+  display: inline-block; margin-bottom: 7px;
+}
+.psc-title { font-size: 15px; font-weight: 700; color: white; line-height: 1.3; margin-bottom: 3px; }
+.psc-meta { font-size: 10px; color: rgba(255,255,255,0.5); }
+.psc-close {
+  background: rgba(255,255,255,0.12); border: none;
+  width: 26px; height: 26px; border-radius: 50%;
+  color: white; font-size: 13px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.psc-close:hover { background: rgba(255,255,255,0.2); }
+.psc-body { padding: 0 18px 18px; }
+.psc-why-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.8); margin-bottom: 8px;
+}
+.psc-why-text {
+  font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.8); margin-bottom: 14px;
+}
+.psc-divider { height: 1px; background: rgba(255,255,255,0.08); margin-bottom: 14px; }
+.psc-purpose-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); margin-bottom: 6px;
+}
+.psc-purpose-text { font-size: 12px; line-height: 1.65; color: rgba(255,255,255,0.5); }
+
+/* Dim/highlight on journey map */
+.ws-card.dim { opacity: 0.2; }
+.lab-card.dim { opacity: 0.2; }
+.oh-bar.dim { opacity: 0.2; }
+.ws-card.hl-persona { box-shadow: 0 0 0 2px var(--bts-blue-mid), 0 6px 20px rgba(28,76,135,0.4); filter: brightness(1.1); }
+.ws-card.hl-survey { box-shadow: 0 0 0 2px #0db4ab, 0 6px 20px rgba(13,180,171,0.3); filter: brightness(1.1); }
+/* Bucket highlight colors — gold, white, grey to contrast with all workshop colors */
+.ws-card.hl-b1 { box-shadow: 0 0 0 3px #f0c040, 0 6px 20px rgba(240,192,64,0.35); filter: brightness(1.1); }
+.ws-card.hl-b2 { box-shadow: 0 0 0 3px rgba(255,255,255,0.9), 0 6px 20px rgba(255,255,255,0.2); filter: brightness(1.1); }
+.ws-card.hl-b3 { box-shadow: 0 0 0 3px #a2a5a8, 0 6px 20px rgba(162,165,168,0.3); filter: brightness(1.1); }
+
+/* Copyright */
+/* ══════════════════════════════════
+   CALENDAR TAB
+══════════════════════════════════ */
+/* ── FIRST VISIT OVERLAY ── */
+.fv-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 300;
+  display: flex; align-items: center; justify-content: center;
+}
+.fv-overlay.hidden { display: none; }
+.fv-modal {
+  background: #1e2225;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 32px 36px;
+  max-width: 420px;
+  width: calc(100% - 48px);
+  text-align: center;
+}
+.fv-icon { font-size: 40px; margin-bottom: 14px; }
+.fv-title { font-size: 20px; font-weight: 700; color: white; margin-bottom: 10px; }
+.fv-body { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 24px; }
+.fv-btn {
+  background: var(--bts-magenta); color: white; border: none;
+  font-size: 14px; font-weight: 600; padding: 12px 28px;
+  border-radius: 8px; cursor: pointer; transition: background 0.2s;
+  width: 100%;
+}
+.fv-btn:hover { background: #a8155a; }
+
+.cal-wrap { max-width: 900px; margin: 0 auto; padding: 36px 36px 80px; }
+.cal-intro { margin-bottom: 28px; }
+.cal-intro h1 { font-size: 24px; font-weight: 700; color: white; margin-bottom: 6px; }
+.cal-intro p { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7; }
+
+.cal-nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.cal-month-title { font-size: 20px; font-weight: 700; color: white; }
+.cal-btn { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: white; padding: 8px 18px; border-radius: 7px; cursor: pointer; font-size: 13px; font-weight: 600; transition: background 0.15s; }
+.cal-btn:hover { background: rgba(255,255,255,0.12); }
+
+.cal-month-dots { display: flex; gap: 6px; }
+.cal-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: background 0.15s; }
+.cal-dot.active-dot { background: var(--bts-magenta); }
+
+/* Week band table */
+.week-table { width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden; }
+.week-table th { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.week-table th:first-child { width: 80px; }
+.week-table td { vertical-align: top; padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px; }
+.week-table tr:last-child td { border-bottom: none; }
+.week-label-cell { color: rgba(255,255,255,0.75); font-size: 11px; font-weight: 600; padding: 10px 12px; white-space: nowrap; vertical-align: top; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.week-table tr:last-child .week-label-cell { border-bottom: none; }
+
+/* Day cell */
+.day-cell { vertical-align: top; padding: 8px 6px; border-left: 1px solid rgba(255,255,255,0.04); }
+.day-cell.hol-cell { background: rgba(255,255,255,0.02); }
+.day-num { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 5px; }
+.hol-name { font-size: 10px; color: rgba(255,255,255,0.25); font-style: italic; margin-top: 3px; line-height: 1.3; }
+
+/* Event pills */
+.cal-event { border-radius: 5px; padding: 5px 8px; margin-bottom: 4px; cursor: pointer; transition: filter 0.15s; }
+.cal-event:hover { filter: brightness(1.12); }
+.cal-event-name { font-size: 11px; font-weight: 600; color: white; line-height: 1.3; }
+.cal-event-time { font-size: 10px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+
+.ce-ai    { background: var(--bts-magenta); }
+.ce-rs    { background: var(--bts-emerald); }
+.ce-tg    { background: var(--bts-purple); }
+.ce-ai-rs { background: linear-gradient(135deg, var(--bts-emerald) 20%, var(--bts-magenta) 100%); }
+.ce-ai-tg { background: linear-gradient(135deg, var(--bts-magenta) 30%, var(--bts-purple) 100%); }
+.ce-tg-rs { background: linear-gradient(135deg, var(--bts-purple) 30%, var(--bts-emerald) 100%); }
+.ce-cap   { background: linear-gradient(135deg, var(--bts-magenta) 0%, var(--bts-emerald) 50%, var(--bts-purple) 100%); }
+.ce-oh    { background: #0db4ab; }
+.ce-lab-ai    { background: rgba(202,28,104,0.75); border: 1.5px dashed var(--bts-magenta); }
+.ce-lab-rs    { background: rgba(29,114,121,0.75); border: 1.5px dashed var(--bts-emerald); }
+.ce-lab-tg    { background: rgba(76,52,128,0.75); border: 1.5px dashed var(--bts-purple); }
+.ce-lab-ai-tg { background: rgba(150,30,100,0.75); border: 1.5px dashed var(--bts-magenta); }
+.ce-lab-ai-rs { background: rgba(29,100,100,0.75); border: 1.5px dashed var(--bts-emerald); }
+.ce-lab-tg-rs { background: rgba(60,80,100,0.75); border: 1.5px dashed var(--bts-purple); }
+.ce-lab-ai .cal-event-name, .ce-lab-rs .cal-event-name, .ce-lab-tg .cal-event-name,
+.ce-lab-ai-tg .cal-event-name, .ce-lab-ai-rs .cal-event-name, .ce-lab-tg-rs .cal-event-name { color: white; }
+.ce-lab-ai .cal-event-time, .ce-lab-rs .cal-event-time, .ce-lab-tg .cal-event-time,
+.ce-lab-ai-tg .cal-event-time, .ce-lab-ai-rs .cal-event-time, .ce-lab-tg-rs .cal-event-time { color: rgba(255,255,255,0.6); }
+
+.cal-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 20px; padding: 12px 16px; background: rgba(255,255,255,0.04); border-radius: 8px; }
+.cal-leg { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.8); }
+.cal-leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+/* ══════════════════════════════════
+   TIMELINE TAB
+══════════════════════════════════ */
+.tl-wrap { max-width: 1100px; margin: 0 auto; padding: 36px 36px 80px; }
+.tl-intro { margin-bottom: 32px; }
+.tl-intro h1 { font-size: 24px; font-weight: 700; color: white; margin-bottom: 6px; }
+.tl-intro p { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.7; }
+
+.tl-half { margin-bottom: 56px; }
+.tl-half-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.8); margin-bottom: 28px;
+}
+
+.tl-track { position: relative; padding-bottom: 80px; }
+
+.tl-nodes {
+  display: flex; align-items: center; gap: 0;
+  position: relative;
+}
+
+/* The connecting line sits behind the nodes */
+.tl-nodes::before {
+  content: '';
+  position: absolute;
+  top: 24px; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.15);
+  z-index: 0;
+}
+
+/* Each node */
+.tl-node {
+  display: flex; flex-direction: column; align-items: center;
+  position: relative; cursor: pointer;
+  flex: 1; min-width: 0; z-index: 1;
+}
+
+/* Icon — no box, just the SVG on a transparent bg with a colored dot below */
+.tl-node-icon {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 2;
+  transition: transform 0.15s;
+}
+.tl-node:hover .tl-node-icon { transform: translateY(-3px); }
+.tl-node-icon svg { width: 28px; height: 28px; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.4)); }
+
+.tl-node-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  margin: 3px 0 4px; flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.2);
+  position: relative; z-index: 2;
+}
+
+.tl-node-label {
+  font-size: 8px; font-weight: 600; color: rgba(255,255,255,0.8);
+  text-align: center; line-height: 1.3; letter-spacing: 0.3px;
+  text-transform: uppercase; max-width: 100%;
+}
+
+/* Popup card on click */
+.tl-popup {
+  position: absolute; top: 64px; left: 50%; transform: translateX(-50%);
+  background: #1e2225; border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px; padding: 14px 16px; width: 210px;
+  z-index: 300; box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+  display: none;
+}
+.tl-popup.open { display: block; }
+.tl-popup::before {
+  content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+  border: 7px solid transparent; border-bottom-color: rgba(255,255,255,0.12);
+}
+.tl-popup-name { font-size: 13px; font-weight: 700; color: white; margin-bottom: 5px; line-height: 1.3; }
+.tl-popup-date { font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 2px; }
+.tl-popup-time { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
+.tl-popup-btn {
+  display: block; text-align: center;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px; padding: 7px 10px; font-size: 11px; color: white;
+  cursor: pointer; transition: background 0.15s; width: 100%;
+}
+.tl-popup-btn:hover { background: rgba(255,255,255,0.16); }
+.tl-popup-close {
+  position: absolute; top: 8px; right: 8px;
+  background: none; border: none; color: rgba(255,255,255,0.4);
+  font-size: 14px; cursor: pointer; padding: 2px 5px; line-height: 1;
+}
+
+.tl-legend { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; margin-bottom: 32px; padding: 12px 16px; background: rgba(255,255,255,0.04); border-radius: 8px; }
+.tl-leg { display: flex; align-items: center; gap: 8px; font-size: 11px; color: rgba(255,255,255,0.8); }
+.tl-leg svg { width: 22px; height: 22px; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3)); }
+
+.reset-btn {
+  position: fixed; bottom: 28px; right: 28px;
+  background: #ca1c68; color: white;
+  border: none; border-radius: 24px;
+  padding: 10px 18px; font-size: 12px; font-weight: 700;
+  cursor: pointer; z-index: 500;
+  box-shadow: 0 4px 16px rgba(202,28,104,0.5);
+  display: none; align-items: center; gap: 7px;
+  transition: background 0.15s, transform 0.15s;
+  letter-spacing: 0.5px;
+}
+.reset-btn.vis { display: flex; }
+.reset-btn:hover { background: #a8155a; transform: translateY(-2px); }
+
+/* ══════════════════════════════════
+   SPOTLIGHT TOUR
+══════════════════════════════════ */
+.tour-trigger-wrap {
+  display: flex; align-items: center;
+  background: white; border-radius: 8px;
+  padding: 5px 12px; margin-left: auto;
+}
+.tour-trigger-btn {
+  background: none; border: none;
+  color: #24282b; font-size: 12px; font-weight: 700;
+  cursor: pointer; white-space: nowrap; padding: 0; letter-spacing: 0.2px;
+}
+.tour-trigger-btn:hover { color: #ca1c68; }
+.tour-spotlight {
+  position: fixed; border-radius: 8px;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.75);
+  z-index: 1001; pointer-events: none;
+  transition: all 0.35s cubic-bezier(.4,0,.2,1);
+  outline: 3px solid rgba(202,28,104,0.6);
+}
+.tour-card {
+  position: fixed; background: white; border-radius: 12px;
+  padding: 20px 22px 16px; width: 300px;
+  z-index: 1002; box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  transition: all 0.35s cubic-bezier(.4,0,.2,1);
+}
+.tour-card-step { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #ca1c68; margin-bottom: 6px; }
+.tour-card-title { font-size: 16px; font-weight: 800; color: #24282b; margin-bottom: 8px; line-height: 1.3; }
+.tour-card-body { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 16px; }
+.tour-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.tour-card-dots { display: flex; gap: 5px; align-items: center; }
+.tour-dot { width: 7px; height: 7px; border-radius: 50%; background: #ddd; transition: background 0.2s; }
+.tour-dot.active { background: #ca1c68; }
+.tour-card-btns { display: flex; gap: 8px; }
+.tour-btn-skip { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 7px 12px; font-size: 12px; color: #888; cursor: pointer; }
+.tour-btn-skip:hover { border-color: #bbb; color: #555; }
+.tour-btn-next { background: #ca1c68; border: none; border-radius: 6px; padding: 7px 16px; font-size: 12px; font-weight: 700; color: white; cursor: pointer; }
+.tour-btn-next:hover { background: #a8155a; }
+</style>
+</head>
+<body>
+
+<div class="modal-bg" id="modal-bg" onclick="closePanel()"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="bts-logo" onclick="resetJourney()" style="cursor:pointer" title="Return to Journey Map">
+    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACFAXwDASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAcIBgkDBAUBAv/EAFMQAAEDAwEFBAIMCAsFCQAAAAEAAgMEBQYRBxIhMUEIE1FhInEJFBUzN1JydYGRobIWIzJCgpKxwxg2OFNWYnOTs7TSVIOVoqMXNENXdJTR0/H/xAAcAQEAAgMBAQEAAAAAAAAAAAAAAQIDBgcEBQj/xAAxEQACAgECAwcCBgIDAAAAAAAAAQIRAwQxBQYhEkFRYXGBocHREyIjMpHwQlIUseH/2gAMAwEAAhEDEQA/ALloiIAiIgCIvFzfJKDEsYrb9cSTDTM1bGCA6V54NY3XqSQPtTcvjxyyzUIK2+iOtn+a2HCbR7o3upLS/UQU8ejpp3eDG/tJ0A6kKt2bbdsyvkr4rNKzH6I6gNgAfO4f1pHDh+iB6ysBzHJLtll/nvd5mElTKdGtbruQs6RsHRo+3iTxJXkL1QxpbnVeD8rabRwU88VOfn1S9F9X8Herrzea9+/X3m51jvGorJJfvErkt2QZBbZBJbb9daJwOo7irkYPpAOh+leaiyUbM8ONx7Liq9CYcE2+5RaZWQZKxl8otdDIGtjqWDyI0a71EDX4yshh+TWXLLLHd7FWsqaZ/Bw5Pjd1a9vNrh4H9iocsl2b5ndMGyWK729zpIXEMrKXe0bURa8WnwcOJa7ofIkHFPEnsarxnlXT6qDyaaKhPwXRPyru9V7l5EXSsV0or3ZqS722YTUlXE2aF46tI14+B6EdCu6vMctlFxbjJU0EREKhERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBVt7XeRSTXq1YtDIRDTw+3ahoP5T3EtZr6gH/rBWSVN+0XPJPtkvokHCLuI2fJ7hh/a4rLhVyNq5O08cvEe1L/GLf8A0vqR8iLlooRU11NSl/dieZkRf8XecG6/RrqvSdXbpWzIsOwDL8ugfU2GzS1FMwlpqHvbFEXDmA5xG8fHTXTquvmWGZNiE8ceQWmakZKdIptWvikOmuge0ka+R4q79mttFZ7VS2u3QNgpKWJsUMbRwa0DQf8A6vK2j2WhyDB7va7gxropKV7muPON7WktePAggH6FgWbr5HO8XOuWWqSeNfht139qvHer8q+5RZF+InF8THHmWglfteg6KWS7IeQvqbJdcYmkLvaMjamnB6Ryk7zR6ngn9NTuqp9k2eRm1CohaT3ctqm3x04SRaH9v1q1i8mVVI5DzXgjh4nNx/yp/wA7/PUIiLGa2EREAREQBde6V9Da7dUXG5VcFHR00ZknqJ5AyOJgGpc5x4ADxK7CwHtF/ARm/wAy1P3CgOb/ALX9lH/mTiP/ABiD/Uu9YdpGz6/3aG02PN8cudwn3u5paS5RSyybrS5261riTo0EnyBWs5Sf2UP5RuG/2tZ/kalTRFmwxERQSEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAVTO1PapKHak6u0AiuNHFK0+Lmaxu+xrfrCtmot7SWFS5VhIr7dAZbpaHOqImMbq6WIj8ZGAOZIAcB1LQOqyY3UjYOWddHR8Qi5uoy/K/fb5oqQvhGoI8UBBAIOoPIr6vUdiLJbNdv1m9xIKDNTU0tfBGGOrIoHSx1AHAOIaC5rz1GmnUHoPK2wbc7fdsfqrBiEVS4VjDFUV0zDGBGeDmxtPpakajUgaA8NekBIqfhxuzXocr8Ohqf8AkKLu7q/y36fS68giL6xrnvbHGxz3vcGta0ElxJ0AAHMk9Fc2AnDsgWqSbKr1ey38VS0baVrvF0jw4j6BGPrVmFhOxPDzheB0tvqGgXCoJqq3TjpK4D0deu60Nb56a9Vmy8mSXalZxfmDXR1uvyZIft2XounzuERFQ+MEREAREQBYD2i/gIzf5lqfuFZ8sB7RfwEZv8y1P3CpW5D2NcSk/sofyjcN/taz/I1KjBSf2UP5RuG/2tZ/kalWZVGwxERULhERAEREAREQEdbZtr2PbK3Wpt9t12rDc+97n2jHG7d7vc13t97fjjTTXqo8/hc7P/6O5X/cU3/3LF/ZBffcK+TXfuFVRWSKtmyHY3tQse1K0XC5WKhudHFQ1IppG1zI2uc4sa/Ubj3DTRw6hZ0q0+x//wARso+eG/4EassoZKCIigkIiIAiIgCIiAIiIAiIgCIiAIiIAiIgK+bcdis89VUZNhdMHvkJkq7YzQFzuZfD01PMs8eI48FXqVkkUz4ZY3xyxuLXse0tcxw5gg8QfIrYQsZzHAsRy70r9ZKapnA3W1LdY52gcgJG6O08tdFmhlrozdeD83z00Fh1ScorZrdff49yjiKzty7OGLTPLqC+XqkHRrjHKB9bQfrK5bX2c8QgeHV92vVcOGrO8ZE0/qt1+1ZPxYmzPm/hnZvtP0p39vkrFQ0tTXVsNDRU81TVTu3YoYWF73nwDRxKsxsK2Ofg9NDk2VRxyXZo3qWk1DmUh+M48nSerg3pqeKk/E8PxnFIDFYLNS0Rc0NfK1u9LIBy3pHaud9JXurHPLfRGqcZ5syayDw6ddmD3fe/sv59QiIsJp4REQBERAEREAWA9ov4CM3+Zan7hWfLAe0X8BGb/MtT9wqVuQ9jXEpP7KH8o3Df7Ws/yNSowUn9lD+Ubhv9rWf5GpVmVRsMRQLtx7SFkwmsnsGMU0V+vsWrZnGTSlpH66br3Di946sbppyLgeCq7l+2fahlM7n1+ZXOjiJ1bT2uU0UbBppp+KIc4fLc5VotZscRauvwoynf7z8Kb/v/AB/dSfe+vf1WR4xtf2n47K19uzm9SMDg4xV1QaxjgPzdJt7QfJ0+tTRFmyJFV7ZT2rqKtmhtu0W2xW2R2jRdKFrnU+vjJGSXMHmC4eO6FZuhq6Wvo4a2iqYammnYHxTRPD2PaeIII4EearRazmREQFT/AGQX33Cvk137hVUVq/ZBffcK+TXfuFVRWWxR7lxfY/8A+I2UfPDf8CNWWWtnZ1tUzfZ9b6ugxS6Q0VPVz9/M19JHKXP3Q3XV4JHBo4LKf4Se2H+klN/w2D/SjRKZf1FQL+Enth/pJTf8Ng/0rMth+3babk+13GsevV8p6i3V9S+OojbQwsLmiGRw0c1oI4tCiibLloiKCQi/M0kcML5ppGRxsaXPe86NaBxJJPIKtG1ftWWy11U1r2f22G8zM1abnVOIpQ7+oxpDpRr11YPAlAWZRa58n23bVshdKKzNblSwyHUQ24to2s8muiAfp63FYpLleWTa99luRza8+8u1Q7X63qaK2bQ0WsOizbNqKZs1JmuTwPadRuXioA+kb+hHkVn2L9o/a1ZJNZr9TXuHUHubnRscAOujo9x/1uKUTZf5FBOwntEUm0XIKfF7hjVXbrzLG+QSU0gmpi1g1LiTo5nTgQRqQNeKnZQSERY9nOZ49hltFbfa5sO/qIYGDemmPgxvX18AOpCJWZMWKeaahjVt9yMhRVhyvtE5FWSvixu10lrp9dGy1A7+cjx04MafLR3rWEz7WtpE0neOy6tadddGQwtH1BiyrDJm04OTOIZY9qbjHyb6/Ca+S6iKoFj25bRLbK0z3OlukQ5srKVvH1GPdP7VMmzjbpjuS1EduvUPuDcZCGs7yQPp5SeQbJoN0nwcBz0BKiWKSPJruVuIaOLn2VJL/Xr8dH8EtoiLGa6EREAREQBFFW0nbdjeLTy221x+7l0jJbJHDIGwwu8HyaHj5NB8DooYvm3XaHcnuNNX0dpjJ4Mo6ZpIHm6TeJ9Y0WSOKTNh0HK/ENZFTUVGL75dPjq/gt4ipZBta2kxSb7curHHXXR8MLh9RYsxxXtD5RQytZkNvorvT66F8Q9rzAdTqNWOPlo3XxCl4ZHtz8mcQxxuDjLyTd/KS+S0SLGcAzrHM3t7qmx1u9LGAZ6WUBs8BPRzdftBIPQlZMsbVbmrZsOTBN48kWpLuYREUGILAe0X8BGb/MtT9wrPlgPaL+AjN/mWp+4VK3IexriXesN2uNiu0V1tFXJR10Mc0cU8Z0fGJYnxPLT0O5I4AjiCQRxAXRRWKnwAAAAaALvWaz3i9SmKy2i43SRrt1zaKlknLT57gOn0qxXZo7PNPkdupszzyKQ2ybSW32sOLPbDOksxHHcPMMGm8OJOh0Nu7Xb6C10MVBbKKmoqSFobFBTxCONgHQNA0ChslI1qV2zzP6GAz1eD5LFEBqXG2TEAeJ0adB61jB4Pcw8HsO65p5tPgR0K2trAtq2yXDNo1vkjvNtjguO4RBc6ZjWVMJ6elp6Q/qu1H7UsUa4VL/Zv2zXHZtfYrXdKiWpxKrl0qYCS40TnH3+IdBqdXtHMakekOOE7UsEvmzrL58cvjWve0CSmqo2kR1UJJDZG68uRBbxLSCOI0JxZSQbV6aeGqpoqmmlZNDKwPjkY4Oa9pGoII5ghcirj2G88lvOJVuD3CUvqbGGyUTnHi6leSA39BwI8muYOiscqF0VP9kF99wr5Nd+4VVFav2QX33Cvk137hVUVlsUe5xzTwQkCWaOMnlvOA1XH7do/9rp/7wK5fYDjjkwbJ+8ja/S8N03hr/4Easn7Xp/5iL9QI2SkaofbtH/tdP8A3gUj9mKpppe0FhjY6iJ7vbsnBrwT/wB3lWxf2vT/AMxF+oF9bBC1wc2GNpHIhoUWTRyIiKCSpPbe2mVbrizZnZ6l0VMyJk96dGdDKXcY6cn4u7o9w67zBy3gatLK9sVwmum1rLq6dxdI+81TOPRrJHRtH0NY0fQsTcdGk+AV0UZ6Fgst4yC5NttitVbdKxw17mkgdI4DxOg9EeZ0Ckij7Ou2GpphP+CYh1H5E1wp2v8Aq3yrhdnrDrPh2yuy09sgj9sV1JFWV1SG+nUTSMDi4nwGujR0AAUhKLJo1z3jYjtZtUbparBrm+Jo1L6Z0dR/yxuc77FgNZT1NFVuo66mnpKpg1dBUROjkb62uAI+pbVl4mW4ljGW0JoslsVBdYNPRFRCHOZ5tdzafMEFLFFfewdhftXH7rntXEO8uMhoaAkcoY3fjXD5Ug3f915qzq87GrJbMbsFDYbNSilt9DC2CniDi7dY0cNSSST4kkkniV6KqyyMT2qZtRYJikt3qGCepe4Q0dNvaGaU8h5NA1JPQDx0Cpnkt8uuR3qe8XmrfVVk59Jx4Bo6NaPzWjoB+0krOu0jk8mQbSqqijlLqGz60cLQfR7zgZXeve9H/dqNF6scOyrOt8scIhotLHLJfqTVt+Cey+/n6IIi71us15uUDp7bZrnXQsJDpKajkla0joS0EArIbLKUYq5Ojor4QCCCNQeYX1zXMe6N7XMew7rmuGhafAg8iiFifOzhtSqY62nwrI6l00MukdsqpHauY7pC49QfzSeR9HqNLGrXs1z2uD43vje0hzXsOjmkcQQehB6q8GybJXZbs+tN7lLTUyRd3VaDQd8wljyB0BLSR5ELz5YV1RzTnDhENPNavEqUnTXn4+/X3XmZSiIsJpAVfe0htSqaapnwrHKl0L2jduVXE7RzdR7ywjkdCN4+eg6qYto+RNxTB7tfyGufSwEwtdydK4hsbT5F7mhUYmlmnnkqKmV008r3SSyOPF73HVzj5kklZsUL6s3TlDhENVklqsquMeiXi/8Az6n4AAAAGgHIL6iAEkAAkkgAAakk8gB1K9B04Iu9cbNerbTCquNlulFTkgCapo5ImHXl6TmgLooVjKMlcXZ3bDd7nYbvT3ez1klHXU7tY5WfaCORaeRB4FXK2RZ3R57i7bgxjYK+ncIq6mB17uTTXUeLXDiD6xzBVKFIHZ+yiTGdpdva6Qiiuj20NS3pq86Ru+h5bx6BzlTJDtI13mXhENdpXkiv1IK0/Fd6+3n7lyURF5DkIWA9ov4CM3+Zan7hWfLAe0X8BGb/ADLU/cKlbkPY1xLNNh+INzrarYccnjL6Kafvq7Tl7XjBe8HwDt0M18XhYWp77CUUT9tlc9/GSPHqlzB4a1FMCfqOn0qzKl3o2MijbHGxrGMAa1rRoAByAC/SIqFwiIgIQ7Z2GwZHsjqL9HC03HHXe3IpOR7gkCdhPxd309PGNqomtnm0ilirdnmSUc7Q6Ke01UbweoMTgVrBiO9G0nqAVZFWSn2Ur5JYtvWOva8NhuDpbfUanmyRhLR/esi+pbClrF2YyPh2oYfJGSHNyG3Eaf8Aqo1s6UMlFT/ZBffcK+TXfuFVRWr9kF99wr5Nd+4VVFK2KvcuL7H/APxGyj54b/gRqyyrT7H/APxGyj54b/gRqyyh7llsERFBIREQGuLtD4/PjW2rKLfNG5jJ619dTkjg+KcmQEeIBc5uviwrAVf7tJ7HINqFjhq7bLDR5LbmOFHPJwjnYeJgkI47pPEO4lp1OhBcDRTKMfvmL3mSzZFaqq118fOGoZoXD4zTye3+s0keasmUaJp2K9pS8YRYaTGsgs/u5aaRojppopu7qYIxyZxG7IByGpaQOp4KbbP2p9lNZCx9fPerQ8nQsqbc+Qt89YO8GiosiULNkNj2xbLb1JHFQ55Yu9k/IiqKpsEjvIMk3Xa+WizeCaKeJs0ErJY3DVr2OBBHkQtUxAI0IBC9rEsrybEakVGMX+42hwJdu00xEbierozqx36QKUTZtCRVj2Gdp2O8XCmx3aJFS0NVM4RwXaH0IHvPANlafeyfjA7uvMNVnFWi1mv+7VTq+7Vte8kvqqiSd3re4uP7V1l6GT0D7Xk11tkjS11JWzQcR0ZI5oP1Beevcjv2NxcE47UZXsjxuDLNolqslW7Skke6WoAOhdGxpcWj16Aa+BV2KKlpqKkio6Onip6eFgZFFE0Naxo5AAcAFRjAckqMSy+3ZBTx96aSXWSLXTvI3Ate31lpOnnorg49tHwi+W5ldSZJbomloL4qmdsMsZ8HNcQR+zwWDMnZz/nTT6rJmxzim8aXd3O+t+qojrtX4lb5sYjzCnhjhuFHPHDUPaNDPE87oDvEtcWkHw1CrOpy7R+0+05FbosVxupbWUrZ2zVtWz3t5b+TGw/nDXRxcOHogDXjpBqyY01HqbHyxh1OLh8Y6hNO3Se6Xd9fYKz3ZBqXSYLd6Un0YLoS0eAdFGT9oKrCrTdkmgfTbOq2ueCG1tykfH5tYxjNf1muH0KMv7TBze4rhkr8VX99LJjREXlOSkO9rerfBs1oqZh0bVXWJkg8Wtjkf95jVVhWu7V9vfV7LG1bOVvuME7/AFO3ov2yhVRXqxftOscnOL4aq/2d+vT6UFY3sm4lbnWaqzGqp2TVz6h9NSOeNe5Y0DeLfBznEjXwA8Sq5KauzdtMtmLxVONZDMKWhqJ+/pasj0InkAOa/Tk06Ah3IHXXRTkTceh6+ZcWoy8PnHT230tLdrv/AL4FnKiGGpgkp6iKOaGRpa+ORoc1wPMEHgQqWba8XpcR2jV9poGhlC9rKmmZrr3bH6+h9Dg4Dy0Vrb3tEwi0Wx1wq8ntb4gNWsgqWyySHwa1pJJVQNpGUTZlmtwyGWJ0LJ3NZTwuOpiiaNGtPTXmT5uKx4U7NY5L0+qx55zaax11vZu1Xuuv9ZjyNmfTOFTE4tkhIkYQeIc3iCPpCLmt9HJcbhS26Fu9LVzsp2Dxc9waPtK9B0VtJXLYv/TSd7TxS6ab7A7T1hci/MTGxRMjb+SxoaPUF+l4D8/vfoFgPaL+AjN/mWp+4VnywHtF/ARm/wAy1P3CpW5V7GuJSz2Rr/Dj+3izmocGRXSGa2OeToGmQNcz65I2N9bgomX7p5pqeoiqaeZ8M8L2yRSMOjmPadWuB6EEAj1KxU2sIov7PO1m27TMVjE08MGR0cYbcqP8kk8u+YOrHc+H5JOh6aygqFwiL8TyxQQSTzyMiijaXve9wa1rQNSSTyACAj/tI5DHjOxLKK50ojmnonUVN4mWf8U3QddN7e9TStc4Gg0Cm/tZbWqfaFkdPYrBOZcctEjnMmb+TWVBG6ZR/Va0ua09d554gtUIKyKtmb7A7Wbzttw2gAJIu0NVwGvCn1nP2RFbJFTvsHYfLWZTd84qYnCmt8BoKQkcHzSaOkI82sDR/vT4K4ihkoqf7IL77hXya79wqqK3PsgVGTY8RuOh0jrKinJ6avja4D/pn6lUZStir3Li+x//AMRso+eG/wCBGrLKo3YEySngumS4lUSsZLVMir6RpOheWaslA8SAYjp4a+Ctyoe5ZbBEX4MsQmbCZGCVzS5rC4bxA01IHgNR9YUEn7REQBeTlGNY/lNu9zsjs1DdaTXeEVVA2QNPiNeR8xxX4v2U45YLlbLberzRW+rusjo6GKeQMM7mgEga8OoHHqQOZAXsoCCMn7K2zS6PfJa5LxYnuOobS1XeRj9GUPOnkCFgt37Hs3O0Z6zQfmVds1J/SbINPqVsUU2yKRRHLOzBtQssMlRb4LXf4WDUNoqndmI8dyQNH0BxKhiupaqhrZ6Gupp6Srp3mOaCeMxyROHNrmu0IPkVtVVQe39Q2eHIcVr4GRMu9TT1DKksaN6SFhj7sv8AUXPA9bvDhKZDRWFwDmlrgCCNCD1V3Oy1tYpK/ZPT0eU3Ii4WqofQNmlJc+eJrWOjcSTqSGvDCTxJZr1VJF7VgteQ11JJLaGVToGyFr+6eQN/QHp10IUshMs32qMRktWYx5RTRH2jdwGzEDhHUMbpx8N5gB9bXKHFfTLcftmUY/V2O7w97SVLN12h0cw8w9p6OB0IPkqb7S8AvuB3U01yYZ6GRxFLXsaRHMOgPxX+LT9Go4rNinao6ryrxqGpwR0uR1OPRea7q81tXh18TE18IB01HLkvqLKbgERclJT1FXVRUlJBLUVEzwyKKJhc97jyAA4koQ2krZy2qgrLrc6W2W+B1RWVcrYYY2/nOcdB6h1J6AEq8+EWCnxfErZj9M7fZRQNjL9NO8fze/8AScSfpUb7AdlDsTaMjyCNpvs0ZbFCCHCjY7mNRwLz1I4AcB1JmFebLO3SOWc18ahrsqwYXcI9/i/su738giIsRqJ5uU2alyHHLjY63XuK6nfA8jm3eGgcPMHQjzCorfrVW2K9VlnuUfd1dHKYpW9CRyI8iNCPIhX8UUbetlYzSnbe7KI4r9TR7m47QNq4xxDCejh+a48OJB4EFuXFPsumbZyrxmGgzPDmdQn3+D8fR7P2KmouWtpaqhrZqGuppaWrgduTQStLXxu8CDyXEvSdVTTVo+AAa6DnzX1EQkKWezDiUt8ztt+qIj7n2b8ZvEcJKgjRjf0QS/yIZ4rDNnOD3zOrwKG0Q7tPG4e2q17T3NOPM9XeDRxPkOIuThONWzEcbpbFaWOEEAJc92m/K88XPcRzJP8A8DgAseWdKjUuaeNQ0mCWmxv9SSr0T3vzfd/J7SIi8pyoLAe0X8BGb/MtT9wrPlgPaL+AjN/mWp+4VK3IexriRfjvYv5xn6wUh9my2WvINuWNWS608VbQVorYamB51D2GhqPDlx0II4ggEcQrFTCLVcK+03KnudqraihrqZ+/DUU8hZJGfIj6iORHA8FO+H9q7PbRRspr9arXke4ABO5xpJ3fKcwOYT6mD6V4e3HYDk2A1dRcrLBU3zGdd5lTEzfnpm/FmYByHxwNDzO7yUNNc1zQ5rg5p4gg8Cm42LR1nbEubod2k2eUcUpH5ct5dI1p+SIG6/WFEG07bPtA2hQOor3dY6a2O5263xmGB/H8/Ul7+nBzi3gCACo8XxxDQSSABzJShZ9Xs4TjN4zLKaLG7DTGor6x+g4ejEwflSPPRjQdSfUBqSAcl2W7Ic42i1EbrLan01scfTulY0x0zR1LTprIfJmvHmRzV39jGynG9l9kfSWljqq41IBrrlM0d7UEcgPiMHHRg4DmdSSTDZKVntbM8PtmB4TbcWtWroaOPR8rmgOnlJ1fI7Tq5xJ8uXRZIiKpYirtV4lPl2xe6wUURlr7cW3GmYG6lxi132jzMZkA8yFr4aQ5oc06gjUFbXFS3tI9ny72K8VmVYNbpbhY6l7pqigp2F01C8nV24wcXxE6kBvFvLTdAIsmVaICst0uVku1Ld7PXTUNwpJBJT1EJ0fG4dRrwPUEHUEEgggkKxOP9r3JaWijhvmG2y6Ttbo6op659JvHxLCyTj46Eeroq0gjVw6tJa4eBHMHzX1SRZYPLO1jnlzpnQWCzWnHt4EGYuNZM3wLS4NYD8pjlG+EbUMksW1e25/eLrcLvUwyblcZpS901K7hJG0cgNPSa0aAOa3gsEWR4FguWZ1XCkxWyVNw9LdkqGt3YIvlyn0R6tdfAFAbMqCrpq+hp66jnZPTVETZYZWHVr2OGrXA9QQQV8uNZS26gqK+unjp6WmidLNK86NjY0aucT4AAlYhsOxO9YPszteMX67QXOqomua2SFhDI2Fxc2IF3FwbroHEN4AcBosgzDHbVlmM1+OXuGSa318RinZHK6NxHPg5pBHEBULmvHbjn1TtK2g1t/l3229o9rW2nfyipmk7uo+M4kvd5u05NC9zZtt82j4RFDRQ3Rl5tcQ3W0V0aZdxvgyUESN8ACXNHRqyvah2Xcxx6Wasw+UZNbBxbCS2OtjHgW8GSetpBPxFBV2oK+0V7rfdqGqt9Y3nBVQuikH6LgDp5q5QthY+2DaHQN93sHucEvX3Pq452nz/ABnd6erivbHa52fFm9+DuVg6a7vcU+v+MqVoopE2y1uVdr9rqZ8eJ4ZK2ZwIZPdqhoDD0JiiJ3vV3jfWq15rlN9zPI6jIMkr3Vtwn0aXkBrY2DXdjY0cGsGp0A8STqSSfGXpYzYb3k9xbbsdtNZdqsnTu6WIv3flHkwebiB5qaIs836z6lfrsx7M4sR2T0cN+t0brtcpXXCrjmYCYHPa1rY/ItYxmo+NvLCuz52bDjt0pcrz58FTcqdwlo7ZC7fhp3jiJJHcpHjoB6LTx1cdC2yyq2WSC69yoaK50MtDcaSCrpZm7skMzA9jx4EHgiKCybi7W5DuX9nnGK18tVYblWWRxBd3O6KiAepriHD1b2ngFAOVYu6wXf3PdXiqO8G94IdzmNeW8f2oizQnJ9DoHK/F9ZqMksWXI5JLvq/53+SSdnuwuDIqRtfXZNNFT6Auhgow1/Hwe55HT4pU7YNs+xXDIybJbWtqXN0fVzHvJ3jw3jyHkNB5IipKcnua7xri+t1GaeHJkfZT22XvVX7mUoiKh8AIiIAiIgMZzjA8WzOAMv1rjmmY3SOpjPdzx+p446eR1HkoKz/YPT2Glkr7dk876cAlsNTRte8aDXi9rmg/qoivGclsfd4PxfW6bLHFjyNRb23Xtd17EWWDHjd7v7nNrBAe8DO8MW/9Omo/ap9wvs945Aynrr/day7kgPEEbfa0J146OAJcf1gPJEV8k5LobRzTxXWaZxx4Z9lNdaq/53JntNtt9pt8VvtdFBRUkQ0jhhYGNb9AXaRFhOdyk5O27YREQgLjqoIKqnfT1MMc8Mg3XxyNDmuHgQeBCIgPL/BXF/6N2f8A9jH/AKVzUWP2GiqWVVFZLbTTs13JYqVjHt1Gh0IGo4Ej6URAeksEy3Y7syymplqrzh1tkqpvfKina6nlefEviLXE+ZKIgMR/gv7Ht/X3Fuenxfdep0+/r9qynF9i2y3G5o57ZhdsM8XGOaqa6qkYfEOlLiD6kRTZFGftAa0NaAABoAOQX1EUEhERAEREBhuZ7LdnuYTOqMhxO21dU4aOqmx91OR/aM0f9qwibsv7IHv3o7Pc4W/Fbdagj/mcT9qIlij28e2A7I7I9r6fDaSrkDg4OuEslXxHXSVzgPoCkmjpqajpmU1JTxU8EY0ZHEwNa0eAA4BEQHKiIgC6F6stnvdKaW82mhuUBGnd1dO2Vv1OBREBH927P+x+5DSXCaOnGuulFNLSj/pPboF47ezBsdEpcbFcS3X8g3ep0H07+v2oiWKPbtWwTZDbQBFg9vqNP9tfJVa+sSudqpCtdtt1qpG0lroKWhpm/kxU8LY2D1BoAREB2kREB//Z" alt="BTS" style="height:36px;width:auto;">
+  </div>
+  <div class="header-center">
+    <div class="header-sub" onclick="resetJourney()" style="cursor:pointer" title="Return to Journey Map">Enablement Learning: ART Journey 2026</div>
+  </div>
+  <div class="tour-trigger-wrap">
+    <button class="tour-trigger-btn" onclick="startTour()">✨ New to the Journey tool? Take a tour!</button>
+  </div>
+</header>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="showScreen('journey')">🗺&nbsp; The Journey</div>
+  <div class="nav-tab" onclick="showScreen('insights')">📊&nbsp; Survey Insights</div>
+  <div class="nav-tab" onclick="showScreen('personas')">🧭&nbsp; My AI Persona</div>
+  <div class="nav-tab" onclick="showScreen('calendar')">📅&nbsp; Calendar</div>
+  <div class="nav-tab" onclick="showScreen('timeline')">📍&nbsp; Timeline</div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     SCREEN 1: JOURNEY MAP
+══════════════════════════════════ -->
+<button class="reset-btn" id="reset-btn" onclick="resetJourney()">✕ Reset map</button>
+<div class="tour-spotlight" id="tour-spotlight" style="display:none"></div>
+<div class="tour-card" id="tour-card" style="display:none">
+  <div class="tour-card-step" id="tour-step-label"></div>
+  <div class="tour-card-title" id="tour-title"></div>
+  <div class="tour-card-body" id="tour-body"></div>
+  <div class="tour-card-footer">
+    <div class="tour-card-dots" id="tour-dots"></div>
+    <div class="tour-card-btns">
+      <button class="tour-btn-skip" id="tour-skip" onclick="endTour()">Skip tour</button>
+      <button class="tour-btn-next" id="tour-next" onclick="tourNext()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen active" id="screen-journey">
+  <div class="journey-wrap">
+
+    <div class="journey-intro">
+      <h1>We asked. You answered. This is what we built.</h1>
+      <p>Every session on this map came from something real you said — a frustration, a hope, an energizer, a skill you wanted to build, an honest moment in a survey. You didn't just fill out a form. You shaped a learning journey. That took courage. Every session below exists because you told us it mattered.</p>
+      <p style="margin-top:14px;font-size:13px;line-height:1.75;color:rgba(255,255,255,0.75);max-width:680px;padding:14px 18px;background:rgba(255,255,255,0.05);border-radius:8px;border-left:3px solid #0db4ab;">This journey is yours to take on your terms. Every session is optional — join the ones that speak to you, skip the ones that don't, and come back when the time is right. Each workshop is 60 minutes live, followed by a 30-minute hands-on lab where you practice with your actual work. Can't make it live? Every session lives on Momenta as an async version so you can learn at your own pace, on your own schedule. Join when you want. Learn how you want. Show up as you are.</p>
+    </div>
+
+    <div class="legend-row" style="align-items:center;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-right:4px;">Color Legend</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#0db4ab"></div>Kickoff / Office Hours</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--bts-magenta)"></div>AI Leadership</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--bts-emerald)"></div>Run Simple</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--bts-purple)"></div>Talent Growth</div>
+    </div>
+
+    <!-- ── MAY: KICKOFF ── -->
+    <div class="month-block">
+      <div class="month-header">
+        <div class="month-dot" style="background:#0db4ab">MAY</div>
+        <div class="month-name" style="color:#0db4ab">May</div>
+        <div class="month-line"></div>
+        <div class="month-tag">Kickoff</div>
+      </div>
+      <div class="workshops-row one-col">
+        <div class="ws-card w-kick" id="ws-kickoff" onclick="openSession('kickoff')">
+          <div class="ws-half">Kickoff</div>
+          <div class="ws-name">🚀 Enablement Learning: ART Journey Kickoff</div>
+          <div class="ws-meta">60 min</div>
+          <span class="ws-badge">ART Combined</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ── JUNE ── -->
+    <div class="month-block">
+      <div class="month-header">
+        <div class="month-dot" style="background:var(--bts-magenta)">JUN</div>
+        <div class="month-name" style="color:var(--bts-magenta)">June</div>
+        <div class="month-line"></div>
+        <div class="month-tag">Month One · Understand</div>
+      </div>
+      <div class="ws-lab-row">
+        <div class="ws-card w-ai-tg" id="ws-ai-conv" onclick="openSession('ai-conv')">
+          <div class="ws-half">Workshop · #2 · Jun 4 · 60 min</div>
+          <div class="ws-name">Engaging in AI Conversations</div>
+          <div class="ws-meta">AI Leadership + Talent Growth</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+        <div class="ws-lab-arrow">
+          <div class="ws-lab-arrow-icon" style="background:rgba(180,30,100,0.25);color:rgba(210,50,130,0.9)">→</div>
+        </div>
+        <div class="lab-card w-ai-tg" id="ws-lab-ai-conv" onclick="openSession('ai-conv')">
+          <div class="lab-badge">Lab · Jun 11 · 30 min</div>
+          <div class="lab-name">Engaging in AI Conversations Lab</div>
+          <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
+        </div>
+      </div>
+      <div class="ws-lab-row">
+        <div class="ws-card w-ai" id="ws-ai-essentials" onclick="openSession('ai-essentials')">
+          <div class="ws-half">Workshop · #3 · Jun 16 · 60 min</div>
+          <div class="ws-name">AI Essentials + Know Your Tools</div>
+          <div class="ws-meta">AI Leadership</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+        <div class="ws-lab-arrow">
+          <div class="ws-lab-arrow-icon" style="background:rgba(202,28,104,0.25);color:rgba(202,28,104,0.9)">→</div>
+        </div>
+        <div class="lab-card w-ai" id="ws-lab-ai-essentials" onclick="openSession('ai-essentials')">
+          <div class="lab-badge">Lab · Jun 24 · 30 min</div>
+          <div class="lab-name">AI Essentials + Know Your Tools Lab</div>
+          <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
+        </div>
+      </div>
+      <div class="oh-bar" id="oh-bar-jun" onclick="openSession('office-hours')">
+        <div class="oh-bar-label">Monthly</div>
+        <div class="oh-bar-dot"></div>
+        <div class="oh-bar-name">ART Office Hours</div>
+        <div class="oh-bar-dot"></div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.8)">60 min · Open to all</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ── JULY ── -->
+    <div class="month-block">
+      <div class="month-header">
+        <div class="month-dot" style="background:var(--bts-emerald)">JUL</div>
+        <div class="month-name" style="color:var(--bts-emerald-mid)">July</div>
+        <div class="month-line"></div>
+        <div class="month-tag">Month Two · Map & Standardize</div>
+      </div>
+      <div class="ws-lab-row">
+        <div class="ws-card w-rs" id="ws-map-workflow" onclick="openSession('map-workflow')">
+          <div class="ws-half">Workshop · #4 · Jul 9 · 60 min</div>
+          <div class="ws-name">Map & Simplify a Workflow</div>
+          <div class="ws-meta">Run Simple</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+        <div class="ws-lab-arrow">
+          <div class="ws-lab-arrow-icon" style="background:rgba(29,114,121,0.25);color:rgba(29,114,121,0.9)">→</div>
+        </div>
+        <div class="lab-card w-rs" id="ws-lab-map-workflow" onclick="openSession('map-workflow')">
+          <div class="lab-badge">Lab · Jul 16 · 30 min</div>
+          <div class="lab-name">Map & Simplify a Workflow Lab</div>
+          <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
+        </div>
+      </div>
+      <div class="oh-bar" id="oh-bar-jul" onclick="openSession('office-hours')">
+        <div class="oh-bar-label">Monthly</div>
+        <div class="oh-bar-dot"></div>
+        <div class="oh-bar-name">ART Office Hours</div>
+        <div class="oh-bar-dot"></div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.8)">60 min · Open to all</div>
+      </div>
+      <div class="ws-lab-row">
+        <div class="ws-card w-tg" id="ws-nav-change" onclick="openSession('nav-change')">
+          <div class="ws-half">Workshop · #5 · Jul 28 · 60 min</div>
+          <div class="ws-name">Navigating Change</div>
+          <div class="ws-meta">Talent Growth</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+        <div class="ws-lab-arrow">
+          <div class="ws-lab-arrow-icon" style="background:rgba(76,52,128,0.25);color:rgba(76,52,128,0.9)">→</div>
+        </div>
+        <div class="lab-card w-tg" id="ws-lab-nav-change" onclick="openSession('nav-change')">
+          <div class="lab-badge">Lab · Jul 30 · 30 min</div>
+          <div class="lab-name">Navigating Change Lab</div>
+          <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ── AUGUST ── -->
+    <div class="month-block">
+      <div class="month-header">
+        <div class="month-dot" style="background:var(--bts-magenta)">AUG</div>
+        <div class="month-name" style="color:var(--bts-magenta)">August</div>
+        <div class="month-line"></div>
+        <div class="month-tag">Month Three · Simplify</div>
+      </div>
+      <div class="ws-lab-row">
+        <div class="ws-card w-ai" id="ws-build-ai" onclick="openSession('build-ai')">
+          <div class="ws-half">Workshop · #6 · Aug 6 · 60 min</div>
+          <div class="ws-name">Build AI Into Your Workflow</div>
+          <div class="ws-meta">AI Leadership</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+        <div class="ws-lab-arrow">
+          <div class="ws-lab-arrow-icon" style="background:rgba(202,28,104,0.25);color:rgba(202,28,104,0.9)">→</div>
+        </div>
+        <div class="lab-card w-ai" id="ws-lab-build-ai" onclick="openSession('build-ai')">
+          <div class="lab-badge">Lab · Aug 13 · 30 min</div>
+          <div class="lab-name">Build AI Into Your Workflow Lab</div>
+          <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
+        </div>
+      </div>
+
+      <div class="oh-bar" id="oh-bar-aug" onclick="openSession('office-hours')">
+        <div class="oh-bar-label">Monthly</div>
+        <div class="oh-bar-dot"></div>
+        <div class="oh-bar-name">ART Office Hours</div>
+        <div class="oh-bar-dot"></div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.8)">60 min · Open to all</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ── SEPTEMBER ── -->
+    <div class="month-block">
+      <div class="month-header">
+        <div class="month-dot" style="background:var(--bts-magenta)">SEP</div>
+        <div class="month-name" style="color:var(--bts-magenta)">September</div>
+        <div class="month-line"></div>
+        <div class="month-tag">Month Four · Automate & AI</div>
+      </div>
+      <div class="ws-lab-row">
+        <div class="ws-card w-ai" id="ws-review-ai" onclick="openSession('review-ai')">
+          <div class="ws-half">Workshop · #8 · Sep 3 · 60 min</div>
+          <div class="ws-name">Reviewing AI Outputs</div>
+          <div class="ws-meta">AI Leadership</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+        <div class="ws-lab-arrow">
+          <div class="ws-lab-arrow-icon" style="background:rgba(202,28,104,0.25);color:rgba(202,28,104,0.9)">→</div>
+        </div>
+        <div class="lab-card w-ai" id="ws-lab-review-ai" onclick="openSession('review-ai')">
+          <div class="lab-badge">Lab · Sep 11 · 30 min</div>
+          <div class="lab-name">Reviewing AI Outputs Lab</div>
+          <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
+        </div>
+      </div>
+      <div class="ctw-solo-row">
+        <div class="ws-card w-ai-rs" id="ws-ctw1" onclick="openSession('ctw1')">
+          <div class="ws-half">Workshop · #9 · Sep 15 · 60 min</div>
+          <div class="ws-name">Cross-Team Workflow Lab 1</div>
+          <div class="ws-meta">Run Simple + AI · Role-mixed</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+      </div>
+      <div class="oh-bar" id="oh-bar-sep" onclick="openSession('office-hours')">
+        <div class="oh-bar-label">Monthly</div>
+        <div class="oh-bar-dot"></div>
+        <div class="oh-bar-name">ART Office Hours</div>
+        <div class="oh-bar-dot"></div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.8)">60 min · Open to all</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ── OCTOBER ── -->
+    <div class="month-block">
+      <div class="month-header">
+        <div class="month-dot" style="background:var(--bts-magenta)">OCT</div>
+        <div class="month-name" style="color:var(--bts-magenta)">October</div>
+        <div class="month-line"></div>
+        <div class="month-tag">Month Five · Automate & AI</div>
+      </div>
+      <div class="ws-lab-row">
+        <div class="ws-card w-tg" id="ws-leadership" onclick="openSession('leadership')">
+          <div class="ws-half">Workshop · #10 · Oct 1 · 60 min</div>
+          <div class="ws-name">Leadership Style</div>
+          <div class="ws-meta">Talent Growth</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+        <div class="ws-lab-arrow">
+          <div class="ws-lab-arrow-icon" style="background:rgba(76,52,128,0.25);color:rgba(76,52,128,0.9)">→</div>
+        </div>
+        <div class="lab-card w-tg" id="ws-lab-leadership" onclick="openSession('leadership')">
+          <div class="lab-badge">Lab · Oct 16 · 30 min</div>
+          <div class="lab-name">Leadership Style Lab</div>
+          <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
+        </div>
+      </div>
+      <div class="ctw-solo-row">
+        <div class="ws-card w-ai-rs" id="ws-ctw2" onclick="openSession('ctw2')">
+          <div class="ws-half">Workshop · #11 · Oct 20 · 60 min</div>
+          <div class="ws-name">Cross-Team Workflow Lab 2</div>
+          <div class="ws-meta">Run Simple + AI · Role-mixed</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+      </div>
+      <div class="oh-bar" id="oh-bar-oct" onclick="openSession('office-hours')">
+        <div class="oh-bar-label">Monthly</div>
+        <div class="oh-bar-dot"></div>
+        <div class="oh-bar-name">ART Office Hours</div>
+        <div class="oh-bar-dot"></div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.8)">60 min · Open to all</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ── NOVEMBER ── -->
+    <div class="month-block">
+      <div class="month-header">
+        <div class="month-dot" style="background:var(--bts-purple)">NOV</div>
+        <div class="month-name" style="color:var(--bts-purple-mid)">November</div>
+        <div class="month-line"></div>
+        <div class="month-tag">Month Six · Automate & AI</div>
+      </div>
+      <div class="ws-lab-row">
+        <div class="ws-card w-tg-rs" id="ws-prioritize" onclick="openSession('prioritize')">
+          <div class="ws-half">Workshop · #12 · Nov 5 · 60 min</div>
+          <div class="ws-name">Prioritize What Matters</div>
+          <div class="ws-meta">Talent Growth + Run Simple</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+        <div class="ws-lab-arrow">
+          <div class="ws-lab-arrow-icon" style="background:rgba(60,80,120,0.25);color:rgba(76,52,128,0.9)">→</div>
+        </div>
+        <div class="lab-card w-tg-rs" id="ws-lab-prioritize" onclick="openSession('prioritize')">
+          <div class="lab-badge">Lab · Nov 13 · 30 min</div>
+          <div class="lab-name">Prioritize What Matters Lab</div>
+          <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
+        </div>
+      </div>
+      <div class="ctw-solo-row">
+        <div class="ws-card w-ai-rs" id="ws-ctw3" onclick="openSession('ctw3')">
+          <div class="ws-half">Workshop · #13 · Nov 17 · 60 min</div>
+          <div class="ws-name">Cross-Team Workflow Lab 3</div>
+          <div class="ws-meta">Run Simple + AI · Role-mixed</div>
+          <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
+        </div>
+      </div>
+      <div class="oh-bar" id="oh-bar-nov" onclick="openSession('office-hours')">
+        <div class="oh-bar-label">Monthly</div>
+        <div class="oh-bar-dot"></div>
+        <div class="oh-bar-name">ART Office Hours</div>
+        <div class="oh-bar-dot"></div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.8)">60 min · Open to all</div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ── DECEMBER: CAPSTONE ── -->
+    <div class="month-block">
+      <div class="month-header">
+        <div class="month-dot" style="background:linear-gradient(135deg,var(--bts-magenta),var(--bts-emerald),var(--bts-purple))">DEC</div>
+        <div class="month-name" style="color:var(--bts-blue-mid)">December</div>
+        <div class="month-line"></div>
+        <div class="month-tag">Capstone</div>
+      </div>
+      <div class="workshops-row one-col">
+        <div class="ws-card w-cap" id="ws-capstone" onclick="openSession('capstone')">
+          <div class="ws-half">Capstone</div>
+          <div class="ws-name">🎉 ART Celebration Showcase</div>
+          <div class="ws-meta">90 min · Share what you built, changed, and learned all year</div>
+          <span class="ws-badge">AI Leadership + Run Simple + Talent Growth</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /journey-wrap -->
+
+  <div class="agents-banner" style="max-width:860px;margin:20px auto 0;margin-left:auto;margin-right:auto;">
+    <div>
+      <div class="agents-banner-label">⏳ Coming Q1 2027</div>
+      <div class="agents-banner-title">Agents 101</div>
+      <div class="agents-banner-desc">Agents are already here. This session gives you a clear picture of what they actually are, how they work, and where the gaps are — so your perspective is grounded in what's real. Building and managing an agent is a skill, and like any skill, it rewards the people who take it seriously.</div>
+    </div>
+  </div>
+
+  <div class="copyright">Copyright © 2026 BTS</div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     SCREEN 2: SURVEY INSIGHTS
+══════════════════════════════════ -->
+<div class="screen" id="screen-insights">
+  <div class="insights-wrap">
+    <div class="insights-intro">
+      <h1>Here's what 93 of you actually said.</h1>
+      <p>Ninety-three people. Five questions. Honest answers. You didn't hedge or perform — you told us the real friction points, the real skills you need, the real way you learn best. This page is us saying thank you by showing you we actually heard it.</p>
+      <div class="brene-q">Your words became the blueprint.</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-n" style="color:var(--bts-magenta)">93</div><div class="stat-l">Survey responses</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:var(--bts-emerald-mid)">59</div><div class="stat-l">Complete responses</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:var(--bts-purple-mid)">100%</div><div class="stat-l">Chose all 3 tracks</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:var(--bts-blue-mid)">12</div><div class="stat-l">Sessions shaped by you</div></div>
+    </div>
+
+    <div class="insights-grid">
+
+      <!-- Question 1 -->
+      <div class="insight-card m" onclick="this.classList.toggle('open')">
+        <div class="ic-top">
+          <div><div class="ic-num m">67%</div></div>
+          <div class="ic-arrow">▶</div>
+        </div>
+        <h3>Question 1 — What you wanted to learn</h3>
+        <div class="sub">"Build AI Into Your Workflow" was your #1 requested session — by a wide margin.</div>
+        <div class="ic-expand">
+          <div class="bar-chart">
+            <div class="bar-row" onclick="connectMapSingle(['ws-build-ai'], 'Build AI Into Your Workflow was your #1 requested session — 67% of you chose it. Click the highlighted workshop on the map to see exactly how your request shaped its design.')"><div class="bar-lbl">Build AI Into Your Workflow</div><div class="bar-track"><div class="bar-fill" style="width:67%;background:var(--bts-magenta)"><span class="bar-pct">67%</span></div></div></div>
+            <div class="bar-row" onclick="connectMapSingle(['ws-map-workflow'], 'Find & Fix Inefficiencies became Map & Simplify a Workflow — because you can\'t fix what you haven\'t mapped yet. 60% of you asked for this.')"><div class="bar-lbl">Find & Fix Inefficiencies</div><div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--bts-emerald)"><span class="bar-pct">60%</span></div></div></div>
+            <div class="bar-row" onclick="connectMapSingle(['ws-build-ai'], 'Using AI in Daily Work maps to two sessions — Build AI Into Your Workflow where you integrate AI into a real process. 60% of you asked for this.')"><div class="bar-lbl">Using AI in Daily Work</div><div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--bts-magenta)"><span class="bar-pct">60%</span></div></div></div>
+            <div class="bar-row" onclick="connectMapSingle(['ws-review-ai'], 'AI for Thinking & Problem-Solving is at the heart of Reviewing AI Outputs — because the thinking happens when you evaluate, critique, and elevate what AI generates. 56% of you asked for this.')"><div class="bar-lbl">AI for Thinking & Problem-Solving</div><div class="bar-track"><div class="bar-fill" style="width:56%;background:var(--bts-magenta)"><span class="bar-pct">56%</span></div></div></div>
+            <div class="bar-row" onclick="connectMapSingle(['ws-ctw1','ws-ctw2','ws-ctw3'], 'Cross-Team Workflow Lab runs three months in a row — September, October, and November — because you told us you wanted multiple touchpoints, not a one-and-done. 55% of you asked for this.')"><div class="bar-lbl">Cross-Team Workflow Lab</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--bts-emerald)"><span class="bar-pct">55%</span></div></div></div>
+            <div class="bar-row" onclick="connectMapSingle(['ws-review-ai'], 'Reviewing AI Outputs is in August — right after you\'ve had hands-on time with the tools. 49% of you asked for this, and it\'s the session that makes everything else trustworthy.')"><div class="bar-lbl">Reviewing AI Outputs</div><div class="bar-track"><div class="bar-fill" style="width:49%;background:var(--bts-magenta)"><span class="bar-pct">49%</span></div></div></div>
+            <div class="bar-row" onclick="connectMapSingle(['ws-leadership'], 'Leadership Style lands in October — giving you frameworks to lead differently right before the more collaborative fall sessions begin. 46% of you asked for this.')"><div class="bar-lbl">Leadership Style</div><div class="bar-track"><div class="bar-fill" style="width:46%;background:var(--bts-purple)"><span class="bar-pct">46%</span></div></div></div>
+            <div class="bar-row" onclick="connectMapSingle(['ws-prioritize','ws-leadership'], 'Managing Urgency became two sessions — Prioritize What Matters in November when EOY pressure peaks, and Leadership Style in October for the frameworks to protect your time. 45% of you asked for this.')"><div class="bar-lbl">Managing Urgency</div><div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--bts-purple)"><span class="bar-pct">45%</span></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="insight-card e" onclick="this.classList.toggle('open')">
+        <div class="ic-top">
+          <div><div class="ic-num e">29%</div></div>
+          <div class="ic-arrow">▶</div>
+        </div>
+        <h3>Question 2 — Where you need the most impact</h3>
+        <div class="sub">Nearly 1 in 3 said AI effectiveness is their #1 area. Leadership development was a close second.</div>
+        <div class="ic-expand">
+          <div class="donut-row" style="gap:12px">
+            <svg width="110" height="110" viewBox="0 0 90 90" style="flex-shrink:0">
+              <circle cx="45" cy="45" r="34" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="13"/>
+              <!-- AI effectiveness: 29% → 62.0, offset 0 -->
+              <circle cx="45" cy="45" r="34" fill="none" stroke="var(--bts-magenta)" stroke-width="13" stroke-dasharray="62.0 213.6" stroke-dashoffset="0" transform="rotate(-90 45 45)"/>
+              <!-- Process efficiency: 20% → 42.7, offset -62.0 -->
+              <circle cx="45" cy="45" r="34" fill="none" stroke="var(--bts-emerald)" stroke-width="13" stroke-dasharray="42.7 213.6" stroke-dashoffset="-62.0" transform="rotate(-90 45 45)"/>
+              <!-- Leadership: 20% → 42.7, offset -104.7 -->
+              <circle cx="45" cy="45" r="34" fill="none" stroke="var(--bts-purple)" stroke-width="13" stroke-dasharray="42.7 213.6" stroke-dashoffset="-104.7" transform="rotate(-90 45 45)"/>
+              <!-- Communication: 13% → 27.8, offset -147.4 -->
+              <circle cx="45" cy="45" r="34" fill="none" stroke="var(--bts-blue-mid)" stroke-width="13" stroke-dasharray="27.8 213.6" stroke-dashoffset="-147.4" transform="rotate(-90 45 45)"/>
+              <!-- Navigating change: 11% → 23.5, offset -175.2 -->
+              <circle cx="45" cy="45" r="34" fill="none" stroke="var(--bts-blue)" stroke-width="13" stroke-dasharray="23.5 213.6" stroke-dashoffset="-175.2" transform="rotate(-90 45 45)"/>
+              <!-- Time management: 7% → 15.0, offset -198.7 -->
+              <circle cx="45" cy="45" r="34" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="13" stroke-dasharray="15.0 213.6" stroke-dashoffset="-198.7" transform="rotate(-90 45 45)"/>
+            </svg>
+            <div class="donut-leg" style="flex:1">
+              <div class="dl-row dl-clickable" onclick="connectMap('q2-ai', event)"><div class="dl-dot" style="background:var(--bts-magenta)"></div><div class="dl-label">Using AI effectively</div><div class="dl-pct">29%</div><div class="dl-arrow">→</div></div>
+              <div class="dl-row dl-clickable" onclick="connectMap('q2-efficiency', event)"><div class="dl-dot" style="background:var(--bts-emerald)"></div><div class="dl-label">Process efficiency</div><div class="dl-pct">20%</div><div class="dl-arrow">→</div></div>
+              <div class="dl-row dl-clickable" onclick="connectMap('q2-leadership', event)"><div class="dl-dot" style="background:var(--bts-purple)"></div><div class="dl-label">Developing as a leader</div><div class="dl-pct">20%</div><div class="dl-arrow">→</div></div>
+              <div class="dl-row dl-clickable" onclick="connectMap('q2-comms', event)"><div class="dl-dot" style="background:var(--bts-blue-mid)"></div><div class="dl-label">Communication</div><div class="dl-pct">13%</div><div class="dl-arrow">→</div></div>
+              <div class="dl-row dl-clickable" onclick="connectMap('q2-change', event)"><div class="dl-dot" style="background:var(--bts-blue)"></div><div class="dl-label">Navigating change</div><div class="dl-pct">11%</div><div class="dl-arrow">→</div></div>
+              <div class="dl-row dl-clickable" onclick="connectMap('q2-time', event)"><div class="dl-dot" style="background:rgba(255,255,255,0.35)"></div><div class="dl-label">Time management</div><div class="dl-pct">7%</div><div class="dl-arrow">→</div></div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:8px;font-style:italic;">Click any area to see related sessions on the map</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="insight-card p" onclick="this.classList.toggle('open')">
+        <div class="ic-top">
+          <div><div class="ic-num p">25</div></div>
+          <div class="ic-arrow">▶</div>
+        </div>
+        <h3>Question 3 — Skills you want to build</h3>
+        <div class="sub">25 people named AI implementation. 17 named leadership influence. Here's what you actually wrote.</div>
+        <div class="ic-expand">
+          <div class="quote-wall" id="q3-wall"></div>
+          <button class="connect-btn" id="btn-q3" onclick="connectMap('q3',event)">🗺 See where this lives in the journey</button>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="insight-card o" onclick="this.classList.toggle('open')">
+        <div class="ic-top">
+          <div><div class="ic-num o">14</div></div>
+          <div class="ic-arrow">▶</div>
+        </div>
+        <h3>Question 4 — What energizes you (and what doesn't)</h3>
+        <div class="sub">14 people cited process improvement wins as energizing. 13 named AI pressure as their top slowdown.</div>
+        <div class="ic-expand">
+          <div style="font-size:10px;color:var(--bts-emerald-mid);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">⚡ What energizes you</div>
+          <div class="quote-wall" id="q4e-wall"></div>
+          <div style="font-size:10px;color:var(--bts-orange);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:10px 0 6px">🧱 What slows you down</div>
+          <div class="quote-wall" id="q4s-wall"></div>
+          <button class="connect-btn" id="btn-q4" onclick="connectMap('q4',event)">🗺 See how the journey addresses this</button>
+        </div>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="insight-card b" onclick="this.classList.toggle('open')">
+        <div class="ic-top">
+          <div><div class="ic-num b">33+</div></div>
+          <div class="ic-arrow">▶</div>
+        </div>
+        <h3>Question 5 — How you learn best</h3>
+        <div class="sub">Over 33 people said hands-on, practical, real work. Not theory. Not lecture. Doing it. That shaped everything about how these sessions are designed.</div>
+        <div class="ic-expand">
+          <div class="learn-grid">
+            <div class="learn-pill" style="background:rgba(202,28,104,0.2)"><span class="ln" style="color:var(--bts-magenta)">#1</span><span class="lt" style="color:var(--bts-magenta-mid)">Hands-on practical</span></div>
+            <div class="learn-pill" style="background:rgba(29,114,121,0.2)"><span class="ln" style="color:var(--bts-emerald-mid)">#2</span><span class="lt" style="color:var(--bts-emerald-mid)">Real examples & use cases</span></div>
+            <div class="learn-pill" style="background:rgba(76,52,128,0.2)"><span class="ln" style="color:var(--bts-purple-mid)">#3</span><span class="lt" style="color:var(--bts-purple-mid)">Short focused sessions</span></div>
+            <div class="learn-pill" style="background:rgba(202,28,104,0.15)"><span class="ln" style="color:var(--bts-magenta-mid)">#4</span><span class="lt" style="color:rgba(255,255,255,0.5)">Multiple touchpoints</span></div>
+            <div class="learn-pill" style="background:rgba(28,76,135,0.2)"><span class="ln" style="color:var(--bts-blue-mid)">#5</span><span class="lt" style="color:var(--bts-blue-mid)">Peer collaboration</span></div>
+          </div>
+          <div style="margin-top:14px">
+            <div style="font-size:10px;color:rgba(255,255,255,0.75);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">What you said</div>
+            <div class="quote-wall" id="q5-wall"></div>
+          </div>
+          <button class="connect-btn" id="btn-q5" onclick="connectMap('q5',event)">🗺 See how the journey addresses this</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="copyright">Copyright © 2026 BTS</div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     SCREEN 3: PERSONAS
+══════════════════════════════════ -->
+<div class="screen" id="screen-personas">
+  <div class="personas-wrap">
+    <div class="personas-intro">
+      <div style="background:rgba(202,28,104,0.12);border:1px solid rgba(202,28,104,0.75);border-radius:9px;padding:13px 18px;margin-bottom:22px;display:flex;align-items:center;gap:14px;">
+        <div style="font-size:22px;flex-shrink:0;">📋</div>
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--bts-magenta-mid);margin-bottom:4px;">Before you dive in</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;">If you haven't already, take the AI Readiness Assessment — 15 questions, about 10 minutes. Then come back here and select your persona. <a href="https://ebottiger.github.io/bts-ai-relationship-assessment/" target="_blank" style="color:var(--bts-magenta-mid);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(202,28,104,0.4);">Take the assessment →</a></div>
+        </div>
+      </div>
+      <h1>Where are you with AI right now?</h1>
+      <p>These five personas are patterns, not labels. No one is only one. You might see yourself in two of them. You might shift between them depending on the day, the task, the pressure you're under. That's not inconsistency — that's being human. The goal isn't to put yourself in a box. It's to find your honest starting place.</p>
+      <div class="brene-q" style="margin-top:12px">Explore your persona below. Find the workshops that speak to you.</div>
+    </div>
+
+    <div class="persona-cards-row">
+      <div class="p-card" onclick="selectPersona('defender')" id="pc-defender">
+        <div class="p-icon">🛡️</div>
+        <div class="p-name">Identity Defender</div>
+        <div class="p-tag">"If AI can do this, what makes me valuable?"</div>
+      </div>
+      <div class="p-card" onclick="selectPersona('skeptic')" id="pc-skeptic">
+        <div class="p-icon">🔍</div>
+        <div class="p-name">Responsible Skeptic</div>
+        <div class="p-tag">"I need to know this is being used responsibly."</div>
+      </div>
+      <div class="p-card" onclick="selectPersona('purist')" id="pc-purist">
+        <div class="p-icon">⚙️</div>
+        <div class="p-name">Skill Purist</div>
+        <div class="p-tag">"I don't want AI thinking for me."</div>
+      </div>
+      <div class="p-card" onclick="selectPersona('overwhelmed')" id="pc-overwhelmed">
+        <div class="p-icon">⏳</div>
+        <div class="p-name">Overwhelmed Operator</div>
+        <div class="p-tag">"I barely have time to do my job — I don't have time to learn this."</div>
+      </div>
+      <div class="p-card" onclick="selectPersona('accelerator')" id="pc-accelerator">
+        <div class="p-icon">⚡</div>
+        <div class="p-name">Accelerator</div>
+        <div class="p-tag">"Why aren't we doing more of this?"</div>
+      </div>
+    </div>
+
+    <div class="persona-detail" id="persona-detail"></div>
+    <div class="persona-session-card" id="persona-session-card"></div>
+
+  </div>
+  <div class="copyright">Copyright © 2026 BTS</div>
+</div>
+
+
+<!-- NOTICE CARD -->
+<div class="notice-card" id="notice-card">
+  <div style="flex:1">
+    <div class="notice-label">Notice</div>
+    <div class="notice-text" id="notice-text"></div>
+  </div>
+  <button class="notice-close" onclick="closeNotice()">✕</button>
+</div>
+
+<!-- JOURNEY FIRST VISIT OVERLAY -->
+<div class="fv-overlay hidden" id="fv-journey">
+  <div class="fv-modal">
+    <div class="fv-icon">🗺</div>
+    <div class="fv-title">This map is interactive</div>
+    <div class="fv-body">Click any workshop card to see its purpose, what you'll walk away with, and how your survey responses shaped its design.</div>
+    <button class="fv-btn" onclick="dismissOverlay('fv-journey')">Got it — let me explore</button>
+  </div>
+</div>
+
+<!-- SURVEY INSIGHTS FIRST VISIT OVERLAY -->
+<div class="fv-overlay hidden" id="fv-insights">
+  <div class="fv-modal">
+    <div class="fv-icon">📊</div>
+    <div class="fv-title">This page is interactive</div>
+    <div class="fv-body">Click any bar, any slice in the donut, or the "See how the journey addresses this" buttons to see how your survey responses connect directly to the workshops on the journey map.</div>
+    <button class="fv-btn" onclick="dismissOverlay('fv-insights')">Got it — show me the data</button>
+  </div>
+</div>
+
+<!-- CALENDAR FIRST VISIT OVERLAY -->
+<div class="fv-overlay hidden" id="fv-calendar">
+  <div class="fv-modal">
+    <div class="fv-icon">📅</div>
+    <div class="fv-title">This calendar is interactive</div>
+    <div class="fv-body">Click any session on the calendar to see its full description, purpose, and how your survey shaped its design.</div>
+    <button class="fv-btn" onclick="dismissOverlay('fv-calendar')">Got it — let me explore</button>
+  </div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="detail-panel" id="detail-panel">
+  <div class="panel-header">
+    <button class="panel-close" onclick="closePanel()">✕</button>
+    <div id="p-badge" class="panel-badge" style="background:var(--bts-magenta)">AI Leadership</div>
+    <div id="p-num" class="panel-num">#2</div>
+    <div id="p-title" class="panel-title">Session Title</div>
+    <div id="p-meta" class="panel-meta">60 min</div>
+  </div>
+  <div class="panel-body" id="p-body"></div>
+</div>
+
+<!-- ══════════════════════════════════
+     SCREEN 4: CALENDAR
+══════════════════════════════════ -->
+<div class="screen" id="screen-calendar">
+  <div class="cal-wrap">
+    <div class="cal-intro">
+      <h1>ART Journey Calendar</h1>
+      <p>Every session, lab, and office hours — exactly when they happen. Click any event to see its full description. Times shown in Pacific / Eastern.</p>
+    </div>
+
+    <div class="cal-nav-row">
+      <button class="cal-btn" onclick="prevMonth()">← Previous</button>
+      <div style="text-align:center">
+        <div class="cal-month-title" id="cal-month-title">June 2026</div>
+        <div class="cal-month-dots" id="cal-month-dots" style="justify-content:center;margin-top:8px"></div>
+      </div>
+      <button class="cal-btn" onclick="nextMonth()">Next →</button>
+    </div>
+
+    <div id="cal-content"></div>
+
+    <div class="cal-legend">
+      <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--bts-magenta)"></div>AI Leadership</div>
+      <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--bts-emerald)"></div>Run Simple</div>
+      <div class="cal-leg"><div class="cal-leg-dot" style="background:var(--bts-purple)"></div>Talent Growth</div>
+      <div class="cal-leg"><div class="cal-leg-dot" style="background:#0db4ab"></div>Office Hours</div>
+      <div class="cal-leg"><div class="cal-leg-dot" style="background:rgba(202,28,104,0.75);border:1.5px dashed var(--bts-magenta)"></div>Lab (30 min — matches workshop color)</div>
+    </div>
+
+    <div style="margin-top:16px;padding:14px 18px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid rgba(255,255,255,0.15);">
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);margin:0;line-height:1.6;">Missing an invitation to a session? Email <a href="mailto:enablement.learning@bts.com" style="color:var(--bts-magenta-mid);text-decoration:none;font-weight:600;">enablement.learning@bts.com</a> to have the invitation resent.</p>
+    </div>
+  </div>
+  <div class="copyright">Copyright © 2026 BTS</div>
+</div>
+
+<!-- ══════════════════════════════════
+     SCREEN 5: TIMELINE
+══════════════════════════════════ -->
+<div class="screen" id="screen-timeline">
+  <div class="tl-wrap">
+    <div class="tl-intro">
+      <h1>ART Journey Timeline</h1>
+      <p>Every session in the ART Journey, in the order they happen.</p>
+      <p>Click any icon to see the session name, date, and time. Click "See on Journey Map" to go directly to that session.</p>
+      <p>All workshops have a live version and an asynchronous version on Momenta.</p>
+      <p>Labs are optional 30-minute hands-on sessions that follow each workshop — a chance to practice the skills with your actual work.</p>
+    </div>
+    <div class="tl-legend" id="tl-legend"></div>
+    <div id="tl-content"></div>
+  </div>
+  <div class="copyright">Copyright © 2026 BTS</div>
+</div>
+
+<script>
+// ── TIMELINE DATA ──
+const tlColors = {
+  ai:    '#ca1c68',
+  rs:    '#1d7279',
+  tg:    '#4c3480',
+  'ai-rs': 'linear-gradient(135deg,#1d7279,#ca1c68)',
+  'tg-rs': 'linear-gradient(135deg,#4c3480,#1d7279)',
+  oh:    '#0db4ab',
+  cap:   'linear-gradient(135deg,#ca1c68,#1d7279,#4c3480)',
+  kick:  '#1d7279',
+};
+
+function svgWorkshop(c) {
+  return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="4" width="26" height="17" rx="2.5" fill="${c}" opacity="0.9"/>
+    <rect x="5" y="6" width="22" height="13" rx="1.5" fill="white" opacity="0.25"/>
+    <circle cx="11" cy="11" r="2.5" fill="white" opacity="0.9"/>
+    <rect x="8.5" y="13" width="5" height="4" rx="1" fill="white" opacity="0.9"/>
+    <circle cx="16" cy="11" r="2.5" fill="white" opacity="0.9"/>
+    <rect x="13.5" y="13" width="5" height="4" rx="1" fill="white" opacity="0.9"/>
+    <circle cx="21" cy="11" r="2.5" fill="white" opacity="0.9"/>
+    <rect x="18.5" y="13" width="5" height="4" rx="1" fill="white" opacity="0.9"/>
+    <rect x="14" y="21" width="4" height="3" rx="1" fill="${c}" opacity="0.8"/>
+    <rect x="10" y="24" width="12" height="2.5" rx="1.25" fill="${c}" opacity="0.8"/>
+  </svg>`;
+}
+
+function svgLab(c) {
+  return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 6 L19 14 L26 24 Q27 26 25 26 L13 26 Q11 26 12 24 L19 14 L19 6 Z" fill="${c}" opacity="0.85"/>
+    <rect x="16" y="4" width="6" height="3.5" rx="1" fill="${c}"/>
+    <path d="M13.5 21 L24.5 21 L26 24 Q27 26 25 26 L13 26 Q11 26 12 24 Z" fill="white" opacity="0.3"/>
+    <path d="M10 7 L10 15 L5 23 Q4 25 6 25 L14 25 Q16 25 15 23 L10 15 L10 7 Z" fill="${c}" opacity="0.7"/>
+    <rect x="8" y="5" width="4.5" height="3" rx="1" fill="${c}" opacity="0.7"/>
+    <path d="M6 21 L14 21 L15 23 Q16 25 14 25 L6 25 Q4 25 5 23 Z" fill="white" opacity="0.25"/>
+    <circle cx="23" cy="9" r="1.2" fill="white" opacity="0.6"/>
+    <circle cx="25" cy="6" r="0.8" fill="white" opacity="0.4"/>
+  </svg>`;
+}
+
+function svgOH() {
+  return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="13" cy="16" r="5" fill="#0db4ab"/>
+    <path d="M5 28 Q5 22 13 22 Q21 22 21 28" fill="#0db4ab"/>
+    <rect x="18" y="5" width="12" height="9" rx="2.5" fill="#0db4ab"/>
+    <path d="M20 14 L18 18 L24 14 Z" fill="#0db4ab"/>
+    <circle cx="21" cy="9.5" r="1.2" fill="white" opacity="0.9"/>
+    <circle cx="24" cy="9.5" r="1.2" fill="white" opacity="0.9"/>
+    <circle cx="27" cy="9.5" r="1.2" fill="white" opacity="0.9"/>
+  </svg>`;
+}
+
+function svgCapstone() {
+  return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="24" width="8" height="5" rx="1" fill="#4c3480"/>
+    <rect x="12" y="18" width="8" height="11" rx="1" fill="#4c3480"/>
+    <rect x="22" y="12" width="8" height="17" rx="1" fill="#4c3480"/>
+    <rect x="26" y="4" width="2" height="10" rx="1" fill="white" opacity="0.8"/>
+    <path d="M28 4 L32 6.5 L28 9 Z" fill="#ca1c68"/>
+    <circle cx="24" cy="9" r="3" fill="#ca1c68"/>
+    <path d="M19 18 Q19 14 24 14 Q29 14 29 16" fill="none" stroke="#ca1c68" stroke-width="2" stroke-linecap="round"/>
+  </svg>`;
+}
+
+function svgKickoff() {
+  return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="15" cy="18" r="12" fill="none" stroke="#1d7279" stroke-width="2.5"/>
+    <circle cx="15" cy="18" r="7.5" fill="none" stroke="#1d7279" stroke-width="2.5"/>
+    <circle cx="15" cy="18" r="3" fill="#1d7279"/>
+    <line x1="24" y1="6" x2="15" y2="18" stroke="#ca1c68" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M24 6 L19.5 8 L22.5 11 Z" fill="#ca1c68"/>
+  </svg>`;
+}
+
+const tlData = [
+  {
+    halfLabel: 'May — August 2026',
+    months: ['MAY','JUN','JUN','JUN','JUN','JUL','JUL','JUL','JUL','AUG','AUG','AUG','AUG','AUG'],
+    nodes: [
+      { type:'kick',  color:'kick',  name:'ART Journey Kickoff',              date:'May 2026',       time:'11am–12pm PT · 2–3pm ET',       session:'kickoff' },
+      { type:'ws',    color:'ai',    name:'Engaging in AI Conversations',     date:'Thu Jun 4',      time:'11am–12pm PT · 2–3pm ET',       session:'ai-conv' },
+      { type:'lab',   color:'ai',    name:'Engaging in AI Conversations Lab', date:'Thu Jun 11',     time:'9–9:30am PT · 12–12:30pm ET',   session:'ai-conv' },
+      { type:'ws',    color:'ai',    name:'AI Essentials + Know Your Tools',  date:'Tue Jun 16',     time:'11am–12pm PT · 2–3pm ET',       session:'ai-essentials' },
+      { type:'lab',   color:'ai',    name:'AI Essentials Lab',                date:'Wed Jun 24',     time:'12–12:30pm PT · 3–3:30pm ET',   session:'ai-essentials' },
+      { type:'oh',    color:'oh',    name:'ART Office Hours',                 date:'Tue Jun 23',     time:'11am–12pm PT · 2–3pm ET',       session:'oh-jun' },
+      { type:'ws',    color:'rs',    name:'Map & Simplify a Workflow',        date:'Thu Jul 9',      time:'10–11am PT · 1–2pm ET',         session:'map-workflow' },
+      { type:'lab',   color:'rs',    name:'Map & Simplify a Workflow Lab',    date:'Thu Jul 16',     time:'9–9:30am PT · 12–12:30pm ET',   session:'map-workflow' },
+      { type:'oh',    color:'oh',    name:'ART Office Hours',                 date:'Thu Jul 23',     time:'11am–12pm PT · 2–3pm ET',       session:'oh-jul' },
+      { type:'ws',    color:'tg',    name:'Navigating Change',                date:'Tue Jul 28',     time:'11am–12pm PT · 2–3pm ET',       session:'nav-change' },
+      { type:'lab',   color:'tg',    name:'Navigating Change Lab',            date:'Thu Jul 30',     time:'9–9:30am PT · 12–12:30pm ET',   session:'nav-change' },
+      { type:'ws',    color:'ai',    name:'Build AI Into Your Workflow',      date:'Thu Aug 6',      time:'11am–12pm PT · 2–3pm ET',       session:'build-ai' },
+      { type:'lab',   color:'ai',    name:'Build AI Into Your Workflow Lab',  date:'Wed Aug 13',     time:'9–9:30am PT · 12–12:30pm ET',   session:'build-ai' },
+      
+      
+      { type:'oh',    color:'oh',    name:'ART Office Hours',                 date:'Thu Aug 27',     time:'11am–12pm PT · 2–3pm ET',       session:'oh-aug' },
+    ]
+  },
+  {
+    halfLabel: 'September — December 2026',
+    months: ['SEP','SEP','SEP','SEP','SEP','OCT','OCT','OCT','OCT','OCT','NOV','NOV','NOV','NOV','NOV','DEC'],
+    nodes: [
+      { type:'ws',    color:'ai',    name:'Reviewing AI Outputs',             date:'Thu Sep 3',      time:'11am–12pm PT · 2–3pm ET',       session:'review-ai' },
+      { type:'lab',   color:'ai',    name:'Reviewing AI Outputs Lab',         date:'Fri Sep 11',     time:'9–9:30am PT · 12–12:30pm ET',   session:'review-ai' },
+      { type:'ws',    color:'ai-rs', name:'Cross-Team Workflow Lab 1',        date:'Tue Sep 15',     time:'11am–12pm PT · 2–3pm ET',       session:'ctw1' },
+      { type:'oh',    color:'oh',    name:'ART Office Hours',                 date:'Thu Sep 24',     time:'11am–12pm PT · 2–3pm ET',       session:'oh-sep' },
+      { type:'ws',    color:'tg',    name:'Leadership Style',                 date:'Thu Oct 1',      time:'11am–12pm PT · 2–3pm ET',       session:'leadership' },
+      { type:'lab',   color:'tg',    name:'Leadership Style Lab',             date:'Fri Oct 16',     time:'9–9:30am PT · 12–12:30pm ET',   session:'leadership' },
+      { type:'ws',    color:'ai-rs', name:'Cross-Team Workflow Lab 2',        date:'Tue Oct 20',     time:'11am–12pm PT · 2–3pm ET',       session:'ctw2' },
+      { type:'oh',    color:'oh',    name:'ART Office Hours',                 date:'Thu Oct 29',     time:'11am–12pm PT · 2–3pm ET',       session:'oh-oct' },
+      { type:'ws',    color:'tg-rs', name:'Prioritize What Matters',          date:'Thu Nov 5',      time:'11am–12pm PT · 2–3pm ET',       session:'prioritize' },
+      { type:'lab',   color:'tg-rs', name:'Prioritize What Matters Lab',      date:'Fri Nov 13',     time:'9–9:30am PT · 12–12:30pm ET',   session:'prioritize' },
+      { type:'ws',    color:'ai-rs', name:'Cross-Team Workflow Lab 3',        date:'Tue Nov 17',     time:'11am–12pm PT · 2–3pm ET',       session:'ctw3' },
+      { type:'oh',    color:'oh',    name:'ART Office Hours',                 date:'Wed Nov 18',     time:'11am–12pm PT · 2–3pm ET',       session:'oh-nov' },
+      
+      { type:'cap',   color:'cap',   name:'ART Celebration Showcase',         date:'Wed Dec 2',      time:'11am–12:30pm PT · 2–3:30pm ET', session:'capstone' },
+    ]
+  }
+];
+
+function getIconBg(color) {
+  if (color === 'kick') return '#1d7279';
+  if (color === 'oh') return '#0db4ab';
+  if (color === 'cap') return '#24282b';
+  if (color === 'ai') return '#ca1c68';
+  if (color === 'rs') return '#1d7279';
+  if (color === 'tg') return '#4c3480';
+  if (color === 'ai-rs') return '#0d6b6e';
+  if (color === 'tg-rs') return '#3a3060';
+  return '#333';
+}
+
+function getIconSvg(type, color) {
+  const c = getIconBg(color);
+  if (type === 'ws' || type === 'kick') {
+    if (type === 'kick') return svgKickoff();
+    return svgWorkshop(c);
+  }
+  if (type === 'lab') return svgLab(c);
+  if (type === 'oh') return svgOH();
+  if (type === 'cap') return svgCapstone();
+  return svgWorkshop(c);
+}
+
+function getNodeBg(color) {
+  if (color === 'ai-rs') return 'linear-gradient(135deg,#1d7279 20%,#ca1c68 100%)';
+  if (color === 'tg-rs') return 'linear-gradient(135deg,#4c3480 20%,#1d7279 100%)';
+  if (color === 'cap')   return 'linear-gradient(135deg,#ca1c68,#1d7279,#4c3480)';
+  return getIconBg(color);
+}
+
+function renderTimeline() {
+  let html = '';
+  tlData.forEach(half => {
+    html += `<div class="tl-half">
+      <div class="tl-half-label">${half.halfLabel}</div>
+      <div class="tl-track">
+        <div class="tl-nodes">`;
+    half.nodes.forEach((node, i) => {
+      const typeLabel = node.type === 'ws' ? 'Workshop' : node.type === 'lab' ? 'Lab' : node.type === 'oh' ? 'Office Hours' : node.type === 'cap' ? 'Capstone' : 'Kickoff';
+      const bg = getNodeBg(node.color);
+      const dotColor = getIconBg(node.color);
+      const iconSvg = getIconSvg(node.type, node.color);
+      const nodeId = `tl-node-${half.halfLabel.substring(0,3)}-${i}`;
+      html += `
+          <div class="tl-node" id="${nodeId}" onclick="tlOpenPopup('${nodeId}')">
+            <div class="tl-node-icon">${iconSvg}</div>
+            <div class="tl-node-dot" style="background:${dotColor};border-color:${dotColor}55"></div>
+            <div class="tl-node-label">${typeLabel}</div>
+            <div class="tl-popup" id="pop-${nodeId}">
+              <button class="tl-popup-close" onclick="tlClosePopup('${nodeId}');event.stopPropagation()">×</button>
+              <div class="tl-popup-name">${node.name}</div>
+              <div class="tl-popup-date">${node.date}</div>
+              <div class="tl-popup-time">${node.time}</div>
+              <button class="tl-popup-btn" onclick="tlGoToMap('${node.session}','${node.type}');event.stopPropagation()">🗺 See on Journey Map</button>
+            </div>
+          </div>`;
+    });
+    html += `</div></div></div>`;
+  });
+
+  // Legend
+  const legendItems = [
+    { type:'kick',  color:'kick',  label:'Kickoff' },
+    { type:'ws',    color:'ai',    label:'Workshop' },
+    { type:'lab',   color:'rs',    label:'Lab' },
+    { type:'oh',    color:'oh',    label:'Office Hours' },
+    { type:'cap',   color:'cap',   label:'Capstone' },
+  ];
+  const legendHtml = legendItems.map(l =>
+    `<div class="tl-leg">${getIconSvg(l.type, l.color)} ${l.label}</div>`
+  ).join('');
+
+  document.getElementById('tl-content').innerHTML = html;
+  document.getElementById('tl-legend').innerHTML = legendHtml;
+}
+
+function tlOpenPopup(nodeId) {
+  // Close all other popups first
+  document.querySelectorAll('.tl-popup.open').forEach(p => p.classList.remove('open'));
+  document.getElementById('pop-' + nodeId).classList.add('open');
+}
+
+function tlClosePopup(nodeId) {
+  document.getElementById('pop-' + nodeId).classList.remove('open');
+}
+
+function tlGoToMap(sessionId, nodeType) {
+  showScreen('journey');
+  setTimeout(() => {
+    clearHighlights();
+    document.querySelectorAll('.ws-card, .lab-card, .oh-bar').forEach(c => c.classList.add('dim'));
+    if (sessionId.startsWith('oh-')) {
+      const el = document.getElementById('oh-bar-' + sessionId.replace('oh-',''));
+      if (el) { el.classList.remove('dim'); el.classList.add('hl-survey'); }
+    } else if (nodeType === 'lab') {
+      const lab = document.getElementById('ws-lab-' + sessionId);
+      if (lab) { lab.classList.remove('dim'); lab.classList.add('hl-survey'); }
+    } else {
+      const el = document.getElementById('ws-' + sessionId);
+      if (el) { el.classList.remove('dim'); el.classList.add('hl-survey'); }
+    }
+    document.getElementById('reset-btn').classList.add('vis');
+    document.querySelector('.journey-wrap').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 120);
+}
+
+// ── SPOTLIGHT TOUR ──
+const tourSteps = [
+  {
+    targetSelector: '.nav-tab:nth-child(1)',
+    title: 'The Journey Map',
+    body: 'Your month-by-month map. Click any session card to see its purpose and how your survey shaped it.',
+    screen: 'journey',
+  },
+  {
+    targetSelector: '.nav-tab:nth-child(2)',
+    title: 'Survey Insights',
+    body: 'See the data behind the journey. Click any bar, donut slice, or button to light up the sessions that respond to what you said.',
+    screen: 'insights',
+  },
+  {
+    targetSelector: '.nav-tab:nth-child(3)',
+    title: 'My AI Persona',
+    body: 'Find your pattern. Explore which sessions were designed for the way you relate to AI today — and see them on the map.',
+    screen: 'personas',
+  },
+  {
+    targetSelector: '.nav-tab:nth-child(4)',
+    title: 'Calendar',
+    body: 'Every session with dates and times. Click any event to see details.',
+    screen: 'calendar',
+  },
+  {
+    targetSelector: '.nav-tab:nth-child(5)',
+    title: 'Timeline',
+    body: 'The full year at a glance. Click any icon to see session details and jump to it on the Journey Map.',
+    screen: 'timeline',
+  },
+  {
+    targetSelector: '.bts-logo',
+    title: 'Resetting the map',
+    body: 'After exploring from Survey Insights, Personas, or Timeline, click the BTS logo or the "✕ Reset map" button (bottom-right) to return the Journey Map to its full view.',
+    screen: null,
+  },
+];
+
+let tourIndex = 0;
+
+function startTour() {
+  tourIndex = 0;
+  document.getElementById('tour-spotlight').style.display = 'block';
+  document.getElementById('tour-card').style.display = 'block';
+  showTourStep(tourIndex);
+}
+
+function showTourStep(idx) {
+  const step = tourSteps[idx];
+
+  // Switch to the relevant screen (don't clear highlights for reset step)
+  if (step.screen) showScreen(step.screen);
+
+  // Build dots
+  const dotsEl = document.getElementById('tour-dots');
+  dotsEl.innerHTML = tourSteps.map((_, i) =>
+    `<div class="tour-dot${i === idx ? ' active' : ''}"></div>`
+  ).join('');
+
+  // Update text
+  document.getElementById('tour-step-label').textContent = `Step ${idx + 1} of ${tourSteps.length}`;
+  document.getElementById('tour-title').textContent = step.title;
+  document.getElementById('tour-body').textContent = step.body;
+
+  // Last step: change button
+  const nextBtn = document.getElementById('tour-next');
+  const skipBtn = document.getElementById('tour-skip');
+  if (idx === tourSteps.length - 1) {
+    nextBtn.textContent = 'Got it — let me explore';
+    skipBtn.style.display = 'none';
+  } else {
+    nextBtn.textContent = 'Next →';
+    skipBtn.style.display = '';
+  }
+
+  // Position spotlight on target
+  setTimeout(() => {
+    const target = document.querySelector(step.targetSelector);
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const pad = 6;
+    const spotlight = document.getElementById('tour-spotlight');
+    spotlight.style.left = (rect.left - pad) + 'px';
+    spotlight.style.top = (rect.top - pad) + 'px';
+    spotlight.style.width = (rect.width + pad * 2) + 'px';
+    spotlight.style.height = (rect.height + pad * 2) + 'px';
+
+    // Position card below or above target
+    const card = document.getElementById('tour-card');
+    const cardW = 300;
+    let cardLeft = rect.left;
+    let cardTop = rect.bottom + 16;
+    if (cardLeft + cardW > window.innerWidth - 16) cardLeft = window.innerWidth - cardW - 16;
+    if (cardLeft < 16) cardLeft = 16;
+    if (cardTop + 200 > window.innerHeight) cardTop = rect.top - 220;
+    card.style.left = cardLeft + 'px';
+    card.style.top = cardTop + 'px';
+  }, 120);
+}
+
+function tourNext() {
+  tourIndex++;
+  if (tourIndex >= tourSteps.length) {
+    endTour();
+  } else {
+    showTourStep(tourIndex);
+  }
+}
+
+function endTour() {
+  document.getElementById('tour-spotlight').style.display = 'none';
+  document.getElementById('tour-card').style.display = 'none';
+  showScreen('journey');
+}
+
+renderTimeline();
+
+// Close timeline popups when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.tl-node')) {
+    document.querySelectorAll('.tl-popup.open').forEach(p => p.classList.remove('open'));
+  }
+});
+// ── CALENDAR DATA ──
+const calMonths = [
+  {
+    name: 'June 2026', idx: 0,
+    holidays: {
+      19: { name: 'Juneteenth', who: 'USA' },
+    },
+    weeks: [
+      { label: 'Jun 1–5',   days: [
+        { d: 1 }, { d: 2 }, { d: 3 },
+        { d: 4, events: [{ name: 'Engaging in AI Conversations', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai-tg', session: 'ai-conv' }] },
+        { d: 5 },
+      ]},
+      { label: 'Jun 8–12',  days: [
+        { d: 8 }, { d: 9 }, { d: 10 },
+        { d: 11, events: [{ name: 'Lab · Engaging in AI Conversations', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-ai-tg', session: 'ai-conv' }] },
+        { d: 12 },
+      ]},
+      { label: 'Jun 15–19', days: [
+        { d: 15 },
+        { d: 16, events: [{ name: 'AI Essentials + Know Your Tools', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai', session: 'ai-essentials' }] },
+        { d: 17 },
+        { d: 18 },
+        { d: 19, hol: 'Juneteenth (USA)' },
+      ]},
+      { label: 'Jun 22–26', days: [
+        { d: 22 }, { d: 23, events: [{ name: 'ART Office Hours', time: '11am–12pm PT · 2–3pm ET', color: 'ce-oh', session: 'office-hours' }] },
+        { d: 24, events: [{ name: 'Lab · AI Essentials + Know Your Tools', time: '12–12:30pm PT · 3–3:30pm ET', color: 'ce-lab-ai', session: 'ai-essentials' }] },
+        { d: 25 }, { d: 26 },
+      ]},
+      { label: 'Jun 29–30', days: [
+        { d: 29 }, { d: 30 },
+        { hol: 'Summer Break (Both)' }, { hol: 'Summer Break (Both)' }, { hol: 'Summer Break (Both)' },
+      ]},
+    ],
+  },
+  {
+    name: 'July 2026', idx: 1,
+    weeks: [
+      { label: 'Jun 29–Jul 3', days: [
+        { hol: 'Summer Break (Both)' }, { hol: 'Summer Break (Both)' },
+        { hol: 'Summer Break (Both)' }, { hol: 'Summer Break (Both)' }, { hol: 'Summer Break (Both)' },
+      ]},
+      { label: 'Jul 6–10',  days: [
+        { d: 6 }, { d: 7 }, { d: 8 },
+        { d: 9, events: [{ name: 'Map & Simplify a Workflow', time: '10–11am PT · 1–2pm ET', color: 'ce-rs', session: 'map-workflow' }] },
+        { d: 10 },
+      ]},
+      { label: 'Jul 13–17', days: [
+        { d: 13 }, { d: 14 }, { d: 15 },
+        { d: 16, events: [{ name: 'Lab · Map & Simplify a Workflow', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-rs', session: 'map-workflow' }] },
+        { d: 17 },
+      ]},
+      { label: 'Jul 20–24', days: [
+        { d: 20 },
+        { d: 21 }, { d: 22 },
+        { d: 23, events: [{ name: 'ART Office Hours', time: '11am–12pm PT · 2–3pm ET', color: 'ce-oh', session: 'office-hours' }] },
+        { d: 24 },
+      ]},
+      { label: 'Jul 27–31', days: [
+        { d: 27 },
+        { d: 28, events: [{ name: 'Navigating Change', time: '11am–12pm PT · 2–3pm ET', color: 'ce-tg', session: 'nav-change' }] },
+        { d: 29 },
+        { d: 30, events: [{ name: 'Lab · Navigating Change', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-tg', session: 'nav-change' }] },
+        { d: 31 },
+      ]},
+    ],
+  },
+  {
+    name: 'August 2026', idx: 2,
+    weeks: [
+      { label: 'Aug 3–7',   days: [
+        { d: 3, hol: 'Civic Holiday (Canada)' },
+        { d: 4 }, { d: 5 },
+        { d: 6, events: [{ name: 'Build AI Into Your Workflow', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai', session: 'build-ai' }] },
+        { d: 7 },
+      ]},
+      { label: 'Aug 10–14', days: [
+        { d: 10 }, { d: 11 }, { d: 12 },
+        { d: 13, events: [{ name: 'Lab · Build AI Into Your Workflow', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-ai', session: 'build-ai' }] },
+        { d: 14 },
+      ]},
+      { label: 'Aug 17–21', days: [
+        { d: 17 },
+        { d: 18 },
+        { d: 19 },
+        { d: 20 },
+        { d: 21 },
+      ]},
+      { label: 'Aug 24–28', days: [
+        { d: 24 }, { d: 25 }, { d: 26 },
+        { d: 27, events: [{ name: 'ART Office Hours', time: '11am–12pm PT · 2–3pm ET', color: 'ce-oh', session: 'office-hours' }] },
+        { d: 28 },
+      ]},
+    ],
+  },
+  {
+    name: 'September 2026', idx: 3,
+    weeks: [
+      { label: 'Sep 1–4',   days: [
+        { empty: true },
+        { d: 1 }, { d: 2 },
+        { d: 3, events: [{ name: 'Reviewing AI Outputs', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai', session: 'review-ai' }] },
+        { d: 4, hol: 'Labour Day (Canada)' },
+      ]},
+      { label: 'Sep 7–11',  days: [
+        { d: 7, hol: 'Labor Day (USA)' },
+        { d: 8 }, { d: 9 }, { d: 10 },
+        { d: 11, events: [{ name: 'Lab · Reviewing AI Outputs', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-ai', session: 'review-ai' }] },
+      ]},
+      { label: 'Sep 14–18', days: [
+        { d: 14 },
+        { d: 15, events: [{ name: 'Cross-Team Workflow Lab 1', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai-rs', session: 'ctw1' }] },
+        { d: 16 }, { d: 17 },
+        { d: 18 },
+      ]},
+      { label: 'Sep 21–25', days: [
+        { d: 21 }, { d: 22 }, { d: 23 },
+        { d: 24, events: [{ name: 'ART Office Hours', time: '11am–12pm PT · 2–3pm ET', color: 'ce-oh', session: 'office-hours' }] },
+        { d: 25 },
+      ]},
+      { label: 'Sep 28–30', days: [
+        { d: 28 }, { d: 29 },
+        { d: 30, hol: 'Truth & Reconciliation Day (Canada)' },
+        { empty: true }, { empty: true },
+      ]},
+    ],
+  },
+  {
+    name: 'October 2026', idx: 4,
+    weeks: [
+      { label: 'Oct 1–2',   days: [
+        { empty: true }, { empty: true }, { empty: true },
+        { d: 1, events: [{ name: 'Leadership Style', time: '11am–12pm PT · 2–3pm ET', color: 'ce-tg', session: 'leadership' }] },
+        { d: 2 },
+      ]},
+      { label: 'Oct 5–9',   days: [
+        { d: 5 }, { d: 6 }, { d: 7 }, { d: 8 },
+        { d: 9, hol: 'Thanksgiving (Canada)' },
+      ]},
+      { label: 'Oct 12–16', days: [
+        { d: 12, hol: 'Thanksgiving Mon. (Canada)' },
+        { d: 13 }, { d: 14 }, { d: 15 },
+        { d: 16, events: [{ name: 'Lab · Leadership Style', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-tg', session: 'leadership' }] },
+      ]},
+      { label: 'Oct 19–23', days: [
+        { d: 19 },
+        { d: 20, events: [{ name: 'Cross-Team Workflow Lab 2', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai-rs', session: 'ctw2' }] },
+        { d: 21 }, { d: 22 },
+        { d: 23 },
+      ]},
+      { label: 'Oct 26–30', days: [
+        { d: 26 }, { d: 27 }, { d: 28 },
+        { d: 29, events: [{ name: 'ART Office Hours', time: '11am–12pm PT · 2–3pm ET', color: 'ce-oh', session: 'office-hours' }] },
+        { d: 30 },
+      ]},
+    ],
+  },
+  {
+    name: 'November 2026', idx: 5,
+    weeks: [
+      { label: 'Nov 2–6',   days: [
+        { d: 2 }, { d: 3 }, { d: 4 },
+        { d: 5, events: [{ name: 'Prioritize What Matters', time: '11am–12pm PT · 2–3pm ET', color: 'ce-tg-rs', session: 'prioritize' }] },
+        { d: 6 },
+      ]},
+      { label: 'Nov 9–13',  days: [
+        { d: 9 }, { d: 10 },
+        { d: 11, hol: 'Veterans Day (USA) · Remembrance Day (Canada)' },
+        { d: 12 },
+        { d: 13, events: [{ name: 'Lab · Prioritize What Matters', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-tg-rs', session: 'prioritize' }] },
+      ]},
+      { label: 'Nov 16–20', days: [
+        { d: 16 },
+        { d: 17, events: [{ name: 'Cross-Team Workflow Lab 3', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai-rs', session: 'ctw3' }] },
+        { d: 18 },
+        { d: 19 },
+        { d: 20, events: [{ name: 'ART Office Hours', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-oh', session: 'office-hours' }] },
+      ]},
+      { label: 'Nov 23–27', days: [
+        { d: 23 }, { d: 24 }, { d: 25 },
+        { d: 26, hol: 'Thanksgiving (USA)' },
+        { d: 27, hol: 'Thanksgiving Fri. (USA)' },
+      ]},
+      { label: 'Nov 30',    days: [
+        { d: 30 }, { empty:true },{ empty:true },{ empty:true },{ empty:true },
+      ]},
+    ],
+  },
+  {
+    name: 'December 2026', idx: 6,
+    weeks: [
+      { label: 'Nov 30–Dec 4', days: [
+        { d: 30, note: 'Nov' }, { d: 1 },
+        { d: 2, events: [{ name: '🎉 ART Celebration Showcase', time: '11am–12:30pm PT · 2–3:30pm ET', color: 'ce-cap', session: 'capstone' }] },
+        { d: 3 }, { d: 4 },
+      ]},
+      { label: 'Dec 7–11',  days: [{ d:7 },{ d:8 },{ d:9 },{ d:10 },{ d:11 }] },
+      { label: 'Dec 14–18', days: [{ d:14 },{ d:15 },{ d:16 },{ d:17 },{ d:18 }] },
+      { label: 'Dec 21–23', days: [
+        { d:21 },{ d:22 },{ d:23 },
+        { hol: 'Winter Break (Both)' }, { hol: 'Winter Break (Both)' },
+      ]},
+    ],
+  },
+];
+
+let calIdx = 0;
+
+function renderCalendar() {
+  const m = calMonths[calIdx];
+  document.getElementById('cal-month-title').textContent = m.name;
+
+  // Month dots
+  const dotsEl = document.getElementById('cal-month-dots');
+  dotsEl.innerHTML = calMonths.map((_, i) =>
+    `<div class="cal-dot ${i === calIdx ? 'active-dot' : ''}" onclick="goToMonth(${i})"></div>`
+  ).join('');
+
+  // Build week band table
+  let html = `<table class="week-table">
+    <thead><tr>
+      <th>Week</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th>
+    </tr></thead><tbody>`;
+
+  m.weeks.forEach(week => {
+    html += `<tr><td class="week-label-cell">${week.label}</td>`;
+    week.days.forEach(day => {
+      if (day.hol) {
+        html += `<td class="day-cell hol-cell"><div class="day-num" style="color:rgba(255,255,255,0.2)">${day.d || ''}</div><div class="hol-name">${day.hol}</div></td>`;
+      } else if (day.empty) {
+        html += `<td class="day-cell" style="background:rgba(255,255,255,0.01)"></td>`;
+      } else {
+        const noteLabel = day.note ? `<span style="font-size:9px;color:rgba(255,255,255,0.2)">${day.note}</span> ` : '';
+        let eventsHtml = '';
+        if (day.events) {
+          day.events.forEach(ev => {
+            eventsHtml += `<div class="cal-event ${ev.color}" onclick="openSession('${ev.session}');event.stopPropagation()">
+              <div class="cal-event-name">${ev.name}</div>
+              <div class="cal-event-time">${ev.time}</div>
+            </div>`;
+          });
+        }
+        html += `<td class="day-cell"><div class="day-num">${noteLabel}${day.d}</div>${eventsHtml}</td>`;
+      }
+    });
+    html += `</tr>`;
+  });
+  html += `</tbody></table>`;
+  document.getElementById('cal-content').innerHTML = html;
+}
+
+function prevMonth() {
+  if (calIdx > 0) { calIdx--; renderCalendar(); }
+}
+function nextMonth() {
+  if (calIdx < calMonths.length - 1) { calIdx++; renderCalendar(); }
+}
+function goToMonth(i) {
+  calIdx = i;
+  renderCalendar();
+}
+
+// Render on load
+document.addEventListener('DOMContentLoaded', function() { renderCalendar(); });
+// Also render now in case DOM is already ready
+if (document.readyState !== 'loading') renderCalendar();
+
+// ── NAVIGATION ──
+const seenScreens = new Set();
+
+function showScreen(s) {
+  document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('screen-' + s).classList.add('active');
+  const idx = {journey:0, insights:1, personas:2, calendar:3, timeline:4}[s];
+  document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+  clearHighlights();
+
+  if ((s === 'journey' || s === 'calendar' || s === 'insights') && !seenScreens.has(s)) {
+    seenScreens.add(s);
+    const overlay = document.getElementById('fv-' + s);
+    if (overlay) overlay.classList.remove('hidden');
+  }
+}
+
+function dismissOverlay(id) {
+  const overlay = document.getElementById(id);
+  if (overlay) overlay.classList.add('hidden');
+}
+
+// ── SESSION DATA ──
+const sessions_data = {
+  kickoff: {
+    num:'Kickoff', title:'Enablement Learning: ART Journey Kickoff', meta:'Late May · 60 min',
+    track:'ART Combined', color:'#0db4ab',
+    purpose:'This is where you see the full shape of the remainder of 2026 — what\'s coming, why it was built, and how to make it work for you.',
+    objective:'You understand the full journey ahead, you understand the logistics, and you know what comes next.',
+    surveyTitle:'Built on your voice',
+    surveyText:'93 responses from 150 participants — 100% selected sessions in all three tracks. Sharing survey results back to you honours your input and builds trust. You told us you wanted to know how your feedback shaped the design — this session closes that loop.',
+    quotes:['"I feel energized knowing we\'re working towards resources and tools that will improve pain points."','"I want clarity on what the business wants the [Enablement] team to focus on and do in this time of change."'],
+    chips:['93 of you responded','100% showed interest in all 3 tracks','59 completed the full survey'],
+  },
+  'ai-conv': {
+    num:'#2 · AI Leadership + Talent Growth', title:'Engaging in AI Conversations', meta:'Early June · 60 min (followed by a 30 min lab session)',
+    track:'AI Leadership + Talent Growth', color:'linear-gradient(135deg,#ca1c68,#4c3480)',
+    purpose:'This session gives you the language and confidence to have honest conversations about AI — with your team, your manager, and yourself.',
+    objective:'You\'ll have a shared language for talking about AI and the confidence to lead when your group is hesitant — because you know what to do next.',
+    surveyTitle:'Because safety comes before skills',
+    surveyText:'When we asked what slows you down, you surfaced AI pressure and anxiety explicitly. Many of you named the feeling of being left behind, the fear of becoming obsolete, and the exhaustion of figuring it out alone. 100% of survey respondents selected AI Leadership sessions, meaning everyone arrives with some relationship to AI — and this session creates the psychological safety that makes every subsequent AI session land.',
+    quotes:['"The mounting pressure to somehow become an AI expert, the sneaking suspicion that we are training our replacements."','"Keeping up with ever-present changes in our work landscape, both as a result of AI and otherwise."'],
+    chips:['100% of respondents showed interest in AI sessions','13 of you named AI pressure as your #1 slowdown'],
+  },
+  'ai-essentials': {
+    num:'#3 · AI Leadership', title:'AI Essentials + Know Your Tools', meta:'Late June · 60 min (followed by a 30 min lab session)',
+    track:'AI Leadership', color:'#ca1c68',
+    purpose:'You\'ll get your hands on the AI tools available to you and leave having actually used one on real work — no theory, no pressure.',
+    objective:'You\'ll know what tools you actually have access to, you\'ll have used one of them on real work, and the anxiety will have shifted.',
+    surveyTitle:'Your top 3 sessions made us build this first',
+    surveyText:'Build AI Into Your Workflow was the #1 session (67%). Using AI in Daily Work (60%) and AI for Thinking, Creating and Problem-Solving (56%) were #2 and #3. All of those require a foundation. This is it. Question 5\'s #1 preference was hands-on/practical — tools in people\'s hands immediately.',
+    quotes:['"Deeper dive & more comfortability with AI, since it\'s ever changing and such a huge area."','"Confidence in using AI to improve my inefficiencies in daily work."'],
+    chips:['67% showed interest in Build AI Into a Workflow','60% showed interest in Using AI Daily','37% showed interest in AI Essentials'],
+  },
+  'map-workflow': {
+    num:'#4 · Run Simple', title:'Map & Simplify a Workflow', meta:'Mid-July · 60 min (followed by a 30 min lab session)',
+    track:'Run Simple', color:'#1d7279',
+    purpose:'You\'ll map a real process you own, find where it\'s breaking down, and leave with one concrete simplification you can act on immediately.',
+    objective:'You\'ll know how to map a workflow — a skill you can use on any process, anytime.',
+    surveyTitle:'Find the friction before introducing any tech',
+    surveyText:'Find and Fix Inefficiencies was the #1 Run Simple session (60%). When we asked what skills you most want to build, you named "workflow automation," "building human-in-the-loop workflows," "mapping workflows to improve processes." When we asked what slows you down, you said: "lack of standard practices across teams," "last-minute asks from lack of processes."',
+    quotes:['"Building and executing human in the loop workflows."','"Last-minute asks that are a result of lack of processes or clearly defined roles."','"Building and Maintaining Standardized Processes: Within and Across Teams."'],
+    chips:['60% showed interest in Find & Fix Inefficiencies','50% showed interest in Map & Simplify a Workflow','12 of you named workflow friction as a real pain point'],
+  },
+  'nav-change': {
+    num:'#5 · Talent Growth', title:'Navigating Change', meta:'Late July · 60 min (followed by a 30 min lab session)',
+    track:'Talent Growth', color:'#4c3480',
+    purpose:'This session helps you find solid ground when everything feels like it\'s shifting — and understand your relationship to change.',
+    objective:'You\'ll know how to move forward when you recognize your change pattern.',
+    surveyTitle:'Change confusion is an early friction, not a late one',
+    surveyText:'When we asked what skills you most want to build, you said: "understanding what it means to be strategic in my role," "navigating when PLs have a PMO vs. when they don\'t," and "clarity on what the business wants the [Enablement] team to focus on." Question 4 slowdowns: "constant change with unclear direction" and "the mounting pressure to become an AI expert while feeling the higher-ups don\'t see the value our team brings."',
+    quotes:['"Fast-moving projects that end up with chaotic, changeable timelines that shift on a near-daily basis."','"Constant updates and changes to processes without clear steps and alignment before they are launched."','"Navigating when PLs have a PMO vs when they don\'t and how responsibilities shift."'],
+    chips:['41% showed interest in Navigating Change','9 of you named change and uncertainty as your #1 impact area'],
+  },
+  'review-ai': {
+    num:'#8 · AI Leadership', title:'Reviewing AI Outputs', meta:'September · 60 min (followed by a 30 min lab session)',
+    track:'AI Leadership', color:'#ca1c68',
+    purpose:'You\'ll build the judgment to know when AI output is good enough — and when it isn\'t — because that discernment is yours, not AI\'s.',
+    objective:'You\'ll have a clear process for auditing AI responses and know how to elevate them — shifting from task steward to strategic thinker.',
+    surveyTitle:'Human judgement is the skill AI can\'t replace',
+    surveyText:'Reviewing and Improving AI Outputs was selected by 49% — the #4 AI session. When we asked what skills you most want to build, answers ranged from foundational ("using AI more confidently") to advanced ("building human-in-the-loop workflows"). Neither works without output quality judgment. When we asked what slows you down, you said: "trying to use AI to replace processes hoping it gets faster later." When we asked how you learn best, you overwhelmingly said real examples — this session uses actual AI outputs.',
+    quotes:['"AI and the struggle to share projects, skills, etc. in Claude."','"Building and executing human in the loop workflows."'],
+    chips:['49% showed interest in Reviewing AI Outputs','56% showed interest in AI for Thinking & Problem-Solving'],
+  },
+  leadership: {
+    num:'#10 · Talent Growth', title:'Leadership Style', meta:'October · 60 min (followed by a 30 min lab session)',
+    track:'Talent Growth', color:'#4c3480',
+    purpose:'This session helps you understand how you lead right now and where you want to grow — especially when you\'re leading without a title or a clear mandate.',
+    objective:'You\'ll have an actionable plan to grow your leadership right away starting today.',
+    surveyTitle:'Your #2 skill gap — addressed directly',
+    surveyText:'Leadership Style was the #1 Talent Growth session (46%). 20% cite "developing as a leader" as their single biggest impact area. When we asked what skills you most want to build, you named: "influencing up," "executive presence," "leading without authority," "situational leadership," "conflict management." When we asked what energizes you, you said: "empowering the [Enablement] team to lean into their expertise."',
+    quotes:['"Leadership skills, especially giving clearer direction, supporting cross-functional collaboration."','"Leading without authority, trusting myself, being bold."','"Rational thinking — responding less with emotion — Executive presence."'],
+    chips:['46% showed interest in Leadership Style','20% of you named leadership as your #1 impact area','17 of you named leadership skills in your own words'],
+  },
+  'build-ai': {
+    num:'#6 · AI Leadership', title:'Build AI Into Your Workflow', meta:'August · 60 min (followed by a 30 min lab session)',
+    track:'AI Leadership', color:'#ca1c68',
+    purpose:'You\'ll take a real workflow you own and integrate AI into it — not in theory, but in the session, with your actual work.',
+    objective:'You\'ll have the experience and know-how to add AI to any workflow you own.',
+    surveyTitle:'Your single most requested session',
+    surveyText:'Build AI Into Your Workflow was the #1 session in the entire survey at 67%. When we asked what skills you most want to build, you named "workflow automation," "building human-in-the-loop workflows," "AI implementation," "connecting AI to apps." This session is why July\'s Map & Simplify exists — you can\'t meaningfully integrate AI into a broken or unclear process.',
+    quotes:['"Workflow automation, especially when it comes to prospecting."','"Leaning into AI training and workflow training — actually implement workflow builds to minimize heavy admin tasks."','"How to build an AI bot. How to connect AI to my apps."'],
+    chips:['67% showed interest in this session — the #1 request overall','4 of you specifically asked for agent-building'],
+  },
+  ctw1: {
+    num:'#9 · Run Simple + AI', title:'Cross-Team Workflow Lab 1', meta:'September · 60 min · Role-mixed',
+    track:'Run Simple + AI', color:'linear-gradient(135deg,#1d7279,#ca1c68)',
+    purpose:'You\'ll work with your chosen cross-functional team to map a shared process, find friction, and simplify the workflow.',
+    objective:'You\'ll leave with a simplified workflow and a strengthened working relationship across functions.',
+    surveyTitle:'Three sessions because you asked for spaced repetition',
+    surveyText:'Cross-Team Workflow Lab was the #2 Run Simple session (55%). When we asked what skills you most want to build, you named "cross-functional collaboration," "miscommunication between [Enablement] teams," "building standardized processes across teams." Question 4: "being brought in after key decisions are made," "misalignment between teams." The Sept-Oct-Nov format directly responds to Question 5\'s preference for multiple touchpoints over one-and-done.',
+    quotes:['"Having many conversations on the same topic — it often feels we are working in circles."','"Being brought into cross-functional decisions after the key choices have already been made."'],
+    chips:['55% showed interest in Cross-Team Workflow Labs','14 of you named cross-team friction as a real pain point','3 sessions built from your preference for multiple touchpoints'],
+  },
+  ctw2: {
+    num:'#11 · Run Simple + AI', title:'Cross-Team Workflow Lab 2', meta:'October · 60 min · Role-mixed',
+    track:'Run Simple + AI', color:'linear-gradient(135deg,#1d7279,#ca1c68)',
+    purpose:'You\'ll work with your chosen cross-functional team to map a shared process, find friction, and simplify the workflow.',
+    objective:'You\'ll leave with a simplified workflow and a strengthened working relationship across functions.',
+    surveyTitle:'Depth over breadth',
+    surveyText:'When we asked how you learn best, you strongly preferred multiple touchpoints and spaced repetition over one-and-done workshops. Lab 2 gives teams time to go deeper after the September foundation. "I enjoy collaboration — having a cadence of touch points, not just a one and done call."',
+    quotes:['"Content and time to practice — a meaningful amount of time, not like 10 minutes."','"Hearing and seeing real scenarios, practice real use-cases, getting the big picture and deconstructing."'],
+    chips:['3 sessions built from your preference for multiple touchpoints','55% showed interest in Cross-Team Workflow Labs'],
+  },
+  ctw3: {
+    num:'#13 · Run Simple + AI', title:'Cross-Team Workflow Lab 3', meta:'November · 60 min · Role-mixed',
+    track:'Run Simple + AI', color:'linear-gradient(135deg,#1d7279,#ca1c68)',
+    purpose:'You\'ll work with your chosen cross-functional team to map a shared process, find friction, and simplify the workflow.',
+    objective:'You\'ll leave with a simplified workflow and a strengthened working relationship across functions.',
+    surveyTitle:'Building toward the showcase',
+    surveyText:'Three labs over three months ensures teams have real, completed work to share at the December ART Showcase. When we asked how you learn best, you said "once a year it would be great to get [Enablement] all together" — this lab series builds toward exactly that.',
+    quotes:['"Working collaboratively with other [Enablement] team members."','"Working together to help each other do great work — the great teams we partner with."'],
+    chips:['3 sessions for sustained impact across the year','Timed in November to build momentum toward the December showcase'],
+  },
+  agents: {
+    num:'#10 · AI Leadership', title:'Agents 101', meta:'Coming Q1 2027',
+    track:'AI Leadership', color:'#ca1c68',
+    purpose:'You\'ll learn what an AI agent actually is, how it works, and take your first steps toward building one.',
+    objective:'You\'ll have the knowledge and confidence to start working with and building an agent.',
+    surveyTitle:'Built from 4 explicit requests',
+    surveyText:'When we asked what skills you most want to build, 4 of you explicitly named agent-building. When we asked what slows you down, you directly flagged "limited by not having access to tools, MCP connectors, or API blocks." 67% selected Build AI Into Your Workflow (the prerequisite) — confirming a large group of survey respondents will be ready for this next step by October.',
+    quotes:['"Building autonomous AI agents."','"How to build an AI bot. How to connect AI to my apps."','"When we\'re limited by not having access to tools, MCP connectors, or API blocks."'],
+    chips:['4 of you explicitly asked for agent-building in your own words','Positioned after Build AI Into Your Workflow so you have the foundation first'],
+  },
+  prioritize: {
+    num:'#12 · Talent Growth + Run Simple', title:'Prioritize What Matters', meta:'November · 60 min (followed by a 30 min lab session)',
+    track:'Talent Growth + Run Simple', color:'linear-gradient(135deg,#4c3480,#1d7279)',
+    purpose:'This session helps you cut through the noise of competing demands and leave with a clear, honest sense of what actually deserves your energy.',
+    objective:'You\'ll have an action plan to prioritize your work starting right away.',
+    surveyTitle:'Named by your exhaustion and your hope',
+    surveyText:'Managing Urgency (45%) and Prioritize What Matters (44%) were the #2 and #3 Talent Growth sessions. When we asked what skills you most want to build, you said: "time management during busy times," "competing priorities." When we asked what energizes you, you said: "having time to strategize rather than executing small tasks." November timing is intentional: year-end pressure peaks, these tools are immediately applicable.',
+    quotes:['"WAY too much to sort, organize, do within time we have available."','"Not feeling supported, seen, appreciated, or invested in at BTS."','"Having time to strategize and not spending too much time on the execution of small tasks."'],
+    chips:['45% showed interest in Managing Urgency','44% showed interest in Prioritize What Matters','Timed in November when end-of-year pressure peaks'],
+  },
+  capstone: {
+    num:'Capstone · All Tracks', title:'ART Celebration Showcase', meta:'December · 90 min · Capstone',
+    track:'AI Leadership + Run Simple + Talent Growth', color:'linear-gradient(135deg,#ca1c68,#1d7279,#4c3480)',
+    purpose:'This is where you and your team share what you built and hear what other teams created.',
+    objective:'You\'ll feel the full weight of what this community accomplished together in a year.',
+    surveyTitle:'You asked to be seen together',
+    surveyText:'100% selected sessions in all three tracks. When we asked what energizes you, you named team collaboration and in-person connection. When we asked how you learn best, you said: "seeing how others do it" and — notably — "once a year it would be great to get [Enablement] all together." That is exactly what this session is.',
+    quotes:['"Once a year it would be great to get [Enablement] all together."','"Expansion/scaling — bringing what we do to more people and how to do that simply and effectively."','"Helping my team, learning new things and putting them to use and then being able to pass those on to others."'],
+    chips:['100% of you showed interest across all 3 tracks','You told us: once a year, get [Enablement] all together — this is it'],
+  },
+  'office-hours': {
+    num:'Monthly · Open', title:'ART Office Hours', meta:'Monthly · 60 min · Open',
+    track:'ART Support', color:'#0db4ab',
+    purpose:'An open, standing space so no one ever has to feel isolated, stuck, or unsupported between sessions.',
+    objective:'Real questions answered, troubleshoot AI workflows, and stay connected to the community and AI champions.',
+    surveyTitle:'Because your slowdowns included feeling unseen',
+    surveyText:'Support available monthly to answer the questions you did not get to ask.',
+    quotes:['"Not knowing who to ask in the BTS space for questions since we are part of an acquisition."','"Not feeling supported, seen, appreciated, or invested in at BTS."'],
+    chips:['18% of you said you learn best with multiple touchpoints and dedicated practice time','15% of you named feeling unsupported or not knowing who to ask as a real slowdown'],
+  },
+};
+
+function openSession(id) {
+  const s = sessions_data[id];
+  if (!s) return;
+  document.getElementById('p-badge').textContent = s.track;
+  document.getElementById('p-badge').style.background = s.color;
+  document.getElementById('p-num').textContent = s.num;
+  document.getElementById('p-title').textContent = s.title;
+  document.getElementById('p-meta').textContent = s.meta;
+  const qs = (s.quotes||[]).map(q=>`<div class="survey-quote">${q}</div>`).join('');
+  const chips = (s.chips||[]).map(c=>`<span class="stat-chip">${c}</span>`).join('');
+  document.getElementById('p-body').innerHTML = `
+    <div class="p-section"><h4>Purpose</h4><p>${s.purpose}</p></div>
+    <div class="p-section"><h4>What you'll walk away with</h4><p>${s.objective}</p></div>
+    <div class="p-section survey-box"><h4>🔗 ${s.surveyTitle}</h4><p>${s.surveyText}</p>${qs}<div class="stat-chips" style="margin-top:12px">${chips}</div></div>
+  `;
+  document.getElementById('detail-panel').classList.add('open');
+  document.getElementById('modal-bg').classList.add('open');
+  document.querySelectorAll('.ws-card').forEach(c=>c.classList.remove('active-card'));
+  const card = document.getElementById('ws-'+id);
+  if (card) card.classList.add('active-card');
+}
+
+function closePanel() {
+  document.getElementById('detail-panel').classList.remove('open');
+  document.getElementById('modal-bg').classList.remove('open');
+  document.querySelectorAll('.ws-card').forEach(c=>c.classList.remove('active-card'));
+}
+
+// ── QUOTES ──
+const q3Q = ["AI automation in recruiting","time management + efficiency","Workflow automation, especially when it comes to prospecting","Becoming a more advanced AI prompt writer","Leadership and executive presence","Building and executing human in the loop workflows","Deeper dive & more comfortability with AI","Using AI effectively","AI has huge potential to improve my workload and enhance my output","Leading without authority, trusting myself, being bold","Building and Maintaining Standardized Processes: Within and Across Teams","Building autonomous AI agents","simplify workflows — AI thinking — boosting creative flow","How to build an AI bot. How to connect AI to my apps.","Influencing up, handling difficult conversations with clients","Strategic thinking and decision-making","Using AI in my daily work, relationship building with clients","Executive Presence, Task Prioritization, Cross-Functional Collaboration"];
+const q4eQ = ["matching the right person to the right opportunity","variety of assignments","Collaborating with others to make something that makes the client happy","getting to do strategic and creative work that matters org-wide","the freedom to experiment with AI","The creativity and innovation that I'm able to unleash with AI","collaborative problem solving","Using AI to streamline and improve standard operating processes","Building centralized and/or automated reports and workflows","The possibilities that AI offers in allowing me to do my work better","Connecting with my colleagues","Process improvement — finding inefficiencies and building something better","I love to tinker, especially with AI — like a puzzle","When I can actually cross something off my list","Energized by the endless possibilities that AI creates","having time to strategize rather than executing small tasks"];
+const q4sQ = ["administrative tasks like coordinating calendars","volume of assignments","thinking everything is urgent, decision paralysis!","keeping up with ever-present changes in our work landscape","constantly trying to figure out how to make AI work in my day to day","WAY too much to sort, organize, do — hard to find time for innovation","The mounting pressure to somehow become an AI expert, the sneaking suspicion we are training our replacements","Being brought into cross-functional decisions after the key choices have already been made","not feeling supported to grow by the business","lack of standard practices across offices/regions/teams","Context switching","Last-minute asks that are a result of lack of processes","Too much on my plate — not feeling supported, seen, appreciated, or invested in at BTS.","not being able to easily share Claude-built dashboards with colleagues"];
+const q5Q = ["applying the task, not just reading about it. Understanding 'why' it matters.","I'm a visual person — I like having a reference point and examples to turn to","Multiple shorter sessions versus a 3 hour long session","Having a real problem and working through it by trial and error","I learn best by doing — walking myself through a process and asking questions","60 minutes or less, preference for something recorded","Short focused sessions with a reference I can return to independently","Micro-bursts","Live sessions with room for Q+A; breakout rooms with similar roles","Once a year it would be great to get [Enablement] all together","I enjoy collaboration — a cadence of touch points, not just a one and done","Real-time practice and application/examples of use"];
+
+function populateQuotes() {
+  const pick = (arr,n) => [...arr].sort(()=>0.5-Math.random()).slice(0,n);
+  const fmt = (arr, cls) => arr.map(q=>`<div class="q-pill ${cls}">"${q}"</div>`).join('');
+  const q3el = document.getElementById('q3-wall'); if(q3el) q3el.innerHTML = fmt(pick(q3Q,8),'sk');
+  const q4eel = document.getElementById('q4e-wall'); if(q4eel) q4eel.innerHTML = fmt(pick(q4eQ,5),'en');
+  const q4sel = document.getElementById('q4s-wall'); if(q4sel) q4sel.innerHTML = fmt(pick(q4sQ,5),'sl');
+  const q5el = document.getElementById('q5-wall'); if(q5el) q5el.innerHTML = fmt(pick(q5Q,8),'lrn');
+}
+populateQuotes();
+
+// ── CONNECT SURVEY TO MAP ──
+const connections = {
+  q1: ['ws-ai-essentials','ws-build-ai','ws-review-ai','ws-ai-conv','ws-map-workflow','ws-ctw1','ws-leadership','ws-prioritize'],
+  q3: ['ws-ai-conv','ws-ai-essentials','ws-build-ai','ws-map-workflow','ws-leadership','ws-nav-change','ws-prioritize'],
+  q4: ['ws-ai-conv','ws-ai-essentials','ws-map-workflow','ws-nav-change','ws-review-ai','ws-leadership','ws-build-ai','ws-ctw1','ws-ctw2','ws-ctw3','ws-prioritize','ws-capstone'],
+  'q2-ai':         ['ws-ai-conv','ws-ai-essentials','ws-review-ai','ws-build-ai'],
+  'q2-efficiency': ['ws-map-workflow','ws-ctw1','ws-ctw2','ws-ctw3','ws-build-ai'],
+  'q2-leadership': ['ws-leadership','ws-nav-change','ws-prioritize','ws-ai-conv'],
+  'q2-comms':      ['ws-leadership','ws-nav-change','ws-ctw1','ws-ctw2','ws-ctw3'],
+  'q2-change':     ['ws-nav-change','ws-ai-conv','ws-leadership'],
+  'q2-time':       ['ws-prioritize','ws-map-workflow','ws-ai-essentials'],
+  q5:              ['ws-ai-conv','ws-ai-essentials','ws-map-workflow','ws-nav-change','ws-review-ai','ws-leadership','ws-build-ai','ws-ctw1','ws-ctw2','ws-ctw3','ws-prioritize','ws-capstone'],
+};
+
+const noticeMessages = {
+  q1: 'These are the sessions you asked for most. Every highlighted workshop came directly from what you said you wanted to learn — not from a curriculum, not from a guess. From you.',
+  q3: 'You told us the skills that matter most to you right now. These sessions were built to develop exactly those capabilities — hands-on, in real work, with real outcomes.',
+  q4: 'Notice how what you said slows you down and what lights you up both shaped this journey. You said AI pressure and not knowing who to ask slows you down — so we built Engaging in AI Conversations first, before any skills training. You named unclear direction and constant change — so Navigating Change lands in July, before the heavier work begins. You said competing priorities drain you — so Prioritize What Matters lands in November when the pressure peaks. You said collaboration and working across teams energizes you — so three Cross-Team Workflow Labs run September through November with a team you choose. You said having time to think strategically lights you up — so every session is 60 minutes, focused, and followed by a lab so you can practice. You said process wins give you momentum — so Map & Simplify a Workflow comes in July, early enough to build that momentum before the AI integration sessions begin.',
+  q5: 'You told us you learn best by doing, not by listening. Notice how these sessions are structured — short, practical, multiple touchpoints, with time to actually try things. That\'s not an accident. That\'s you.',
+  q5: 'Notice how your learning preferences are built into every session on this map. You said 60 minutes or less — every workshop is exactly 60 minutes. You said hands-on and practical — every session ends with you having done something real, not just heard about it. You said multiple touchpoints — the Cross-Team Workflow Labs run three months in a row, the Office Hours are monthly, and the journey itself spans May to December. You said you want a recorded option — every session lives on Momenta as an async version. You said peer collaboration — the Labs bring mixed teams together to work on real shared problems. You asked for this. Every session you see lit up was designed around how you told us you actually learn.',
+  'q2-efficiency': 'You said process efficiency is where you need the most impact. These sessions give you the tools to find where your workflows are breaking down and fix them — before adding any technology.',
+  'q2-leadership': 'Developing as a leader was your second biggest impact area. These sessions address influence, identity, and growth — especially when you\'re leading without a clear mandate.',
+  'q2-comms':      'Stronger communication across teams was a real need you named. These sessions give you the frameworks to work across functions, reduce misalignment, and be heard.',
+  'q2-change':     'Navigating change isn\'t just a workshop topic — it\'s the context for this entire year. These sessions help you find your footing, name what\'s shifting, and lead through it.',
+  'q2-time':       'When everything feels urgent, nothing gets done well. These sessions were designed to help you cut through the noise and protect time for what actually matters.',
+};
+
+function connectMapSingle(wsIds, noticeMsg) {
+  showScreen('journey');
+  setTimeout(() => {
+    clearHighlights();
+    document.querySelectorAll('.ws-card, .lab-card, .oh-bar').forEach(c => c.classList.add('dim'));
+    wsIds.forEach(id => {
+      // Light up the workshop
+      const el = document.getElementById(id);
+      if (el) { el.classList.remove('dim'); el.classList.add('hl-survey'); }
+      // Light up ONLY the lab that belongs to this specific workshop
+      const labId = 'ws-lab-' + id.replace('ws-','');
+      const lab = document.getElementById(labId);
+      if (lab) { lab.classList.remove('dim'); lab.classList.add('hl-survey'); }
+    });
+    document.getElementById('reset-btn').classList.add('vis');
+    document.querySelector('.journey-wrap').scrollIntoView({behavior:'smooth', block:'start'});
+    if (noticeMsg) {
+      document.getElementById('notice-text').textContent = noticeMsg;
+      document.getElementById('notice-card').classList.add('vis');
+    }
+  }, 120);
+}
+
+function connectMap(type, e) {
+  e.stopPropagation();
+  showScreen('journey');
+  setTimeout(() => {
+    clearHighlights();
+    document.querySelectorAll('.ws-card, .lab-card, .oh-bar').forEach(c=>c.classList.add('dim'));
+    (connections[type]||[]).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.classList.remove('dim'); el.classList.add('hl-survey'); }
+      // Only light up the lab that belongs to this specific workshop
+      const lab = document.getElementById('ws-lab-' + id.replace('ws-',''));
+      if (lab) { lab.classList.remove('dim'); lab.classList.add('hl-survey'); }
+    });
+    document.getElementById('reset-btn').classList.add('vis');
+    document.querySelector('.journey-wrap').scrollIntoView({behavior:'smooth', block:'start'});
+    const msg = noticeMessages[type];
+    if (msg) {
+      document.getElementById('notice-text').textContent = msg;
+      document.getElementById('notice-card').classList.add('vis');
+    }
+  }, 120);
+}
+
+function closeNotice() {
+  document.getElementById('notice-card').classList.remove('vis');
+}
+
+function resetJourney() {
+  showScreen('journey');
+  clearHighlights();
+  document.getElementById('notice-card').classList.remove('vis');
+  document.getElementById('reset-btn').classList.remove('vis');
+}
+
+function clearHighlights() {
+  document.querySelectorAll('.ws-card, .lab-card, .oh-bar').forEach(c => {
+    c.classList.remove('dim','hl-persona','hl-survey','hl-b1','hl-b2','hl-b3','active-card');
+  });
+  const btn = document.getElementById('reset-btn');
+  if (btn) btn.classList.remove('vis');
+}
+
+// ── BUCKET DEFINITIONS per persona ──
+const buckets = {
+  defender: {
+    b1: ['ai-conv','review-ai','nav-change'],
+    b2: ['ai-essentials','leadership','build-ai'],
+    b3: ['map-workflow','ctw','prioritize','capstone'],
+  },
+  skeptic: {
+    b1: ['review-ai','ai-conv','map-workflow'],
+    b2: ['ai-essentials','build-ai','nav-change'],
+    b3: ['leadership','ctw','prioritize','capstone'],
+  },
+  purist: {
+    b1: ['review-ai','build-ai','leadership'],
+    b2: ['ai-conv','ai-essentials','map-workflow','nav-change'],
+    b3: ['ctw','prioritize','capstone'],
+  },
+  overwhelmed: {
+    b1: ['ai-essentials','map-workflow','prioritize'],
+    b2: ['ai-conv','nav-change','review-ai','leadership'],
+    b3: ['build-ai','ctw','capstone'],
+  },
+  accelerator: {
+    b1: ['build-ai','ctw'],
+    b2: ['review-ai','leadership','map-workflow'],
+    b3: ['ai-conv','ai-essentials','nav-change','prioritize','capstone'],
+  },
+};
+
+// ── SESSION CARD DATA (for flip cards) ──
+const flipCards = {
+  'ai-conv':     { num:'#2', name:'Engaging in AI Conversations', color:'fc-ai-tg', ids:['ws-ai-conv'] },
+  'ai-essentials':{ num:'#3', name:'AI Essentials + Know Your Tools', color:'fc-ai', ids:['ws-ai-essentials'] },
+  'map-workflow':{ num:'#4', name:'Map & Simplify a Workflow', color:'fc-rs', ids:['ws-map-workflow'] },
+  'nav-change':  { num:'#5', name:'Navigating Change', color:'fc-tg', ids:['ws-nav-change'] },
+  'review-ai':   { num:'#8', name:'Reviewing AI Outputs', color:'fc-ai', ids:['ws-review-ai'] },
+  'leadership':  { num:'#10', name:'Leadership Style', color:'fc-tg', ids:['ws-leadership'] },
+  'build-ai':    { num:'#6', name:'Build AI Into Your Workflow', color:'fc-ai', ids:['ws-build-ai'] },
+  'ctw':         { num:'#9–13', name:'Cross-Team Workflow Labs 1, 2 & 3', color:'fc-ai-rs', ids:['ws-ctw1','ws-ctw2','ws-ctw3'] },
+  'agents': { num:'#10', name:'Agents 101', color:'fc-ai', ids:[] },
+  'prioritize':  { num:'#12', name:'Prioritize What Matters', color:'fc-tg-rs', ids:['ws-prioritize'] },
+  'capstone':    { num:'Capstone', name:'ART Celebration Showcase', color:'fc-cap', ids:['ws-capstone'] },
+};
+
+// Chronological order reference
+const chronoOrder = ['ai-conv','ai-essentials','map-workflow','nav-change','review-ai','leadership','build-ai','ctw','prioritize','capstone'];
+
+function sortChronological(sids) {
+  return [...sids].sort((a, b) => chronoOrder.indexOf(a) - chronoOrder.indexOf(b));
+}
+
+function buildBucketHTML(personaKey, bucketKey, sessionIds) {
+  const p = personas[personaKey];
+  const labels = {
+    b1: { icon:'🎯', title:'Made for you', sub:'sessions built for exactly where you are right now' },
+    b2: { icon:'🔧', title:'Go deeper', sub:'sessions that build on your starting point' },
+    b3: { icon:'🌱', title:'The full picture', sub:'sessions that complete your journey' },
+  };
+  const l = labels[bucketKey];
+  const sorted = sortChronological(sessionIds);
+
+  const cards = sorted.map(sid => {
+    const fc = flipCards[sid];
+    const sessionData = sessions_data[sid === 'ctw' ? 'ctw1' : sid];
+    const pSession = p.sessions.find(s => s.id === 'ws-' + (sid === 'ctw' ? 'ctw1' : sid));
+    const purpose = sessionData ? sessionData.purpose : '';
+    const whyFull = pSession ? pSession.why : '';
+    const sentences = whyFull.match(/[^.!?]+[.!?]+/g) || [whyFull];
+    const why = sentences.slice(0, 2).join(' ').trim();
+    const cardId = `vcard-${personaKey}-${sid}`;
+
+    return `
+      <div class="vcard" id="${cardId}">
+        <div class="vcard-front" onclick="toggleVCard('${cardId}')">
+          <div class="vcard-strip ${fc.color}"></div>
+          <div class="vcard-body">
+            <div class="vcard-num">${fc.num}</div>
+            <div class="vcard-name">${fc.name}</div>
+            <div class="vcard-purpose">${purpose}</div>
+          </div>
+          <div class="vcard-arrow">▶</div>
+        </div>
+        <div class="vcard-back">
+          <div class="vcard-why-label">Why this speaks to the ${p.name}</div>
+          <div class="vcard-why-text">${why}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="bucket-section bucket-${bucketKey}">
+      <div class="bucket-header">
+        <span class="bucket-icon">${l.icon}</span>
+        <span class="bucket-title">${l.title}</span>
+        <span class="bucket-subtitle">— ${l.sub}</span>
+      </div>
+      <div class="session-stack">${cards}</div>
+    </div>`;
+}
+
+function toggleVCard(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+function selectPersona(key) {
+  document.querySelectorAll('.p-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('pc-'+key).classList.add('selected');
+  const p = personas[key];
+  const b = buckets[key];
+
+  const b1html = buildBucketHTML(key, 'b1', b.b1);
+  const b2html = buildBucketHTML(key, 'b2', b.b2);
+  const b3html = buildBucketHTML(key, 'b3', b.b3);
+
+  document.getElementById('persona-detail').innerHTML = `
+    <div class="pd-header">
+      <div class="pd-icon">${p.icon}</div>
+      <div class="pd-text"><h2>${p.name}</h2><p>${p.tagline}</p></div>
+    </div>
+    <div class="pd-desc expanded" id="pd-desc-text">${p.desc}</div>
+    <div style="margin-top:20px">
+      ${b1html}${b2html}${b3html}
+    </div>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);">
+      <button class="map-btn" onclick="showPersonaOnMap('${key}')">✨ Show me these workshops on the journey map</button>
+    </div>
+  `;
+  document.getElementById('persona-detail').classList.add('vis');
+
+  // Clear any open session card
+  const sc = document.getElementById('persona-session-card');
+  sc.classList.remove('vis');
+  sc.innerHTML = '';
+}
+
+
+
+function showPersonaOnMap(key) {
+  const b = buckets[key];
+  showScreen('journey');
+  setTimeout(() => {
+    clearHighlights();
+    document.querySelectorAll('.ws-card, .lab-card, .oh-bar').forEach(c=>c.classList.add('dim'));
+
+    // Highlight each bucket in its color
+    const allSessions = [
+      { ids: b.b1, cls: 'hl-b1' },
+      { ids: b.b2, cls: 'hl-b2' },
+      { ids: b.b3, cls: 'hl-b3' },
+    ];
+    allSessions.forEach(({ ids, cls }) => {
+      ids.forEach(sid => {
+        const fc = flipCards[sid];
+        if (fc) {
+          fc.ids.forEach(wsId => {
+            const el = document.getElementById(wsId);
+            if (el) { el.classList.remove('dim'); el.classList.add(cls); }
+            // Only light up the lab belonging to this specific workshop
+            const lab = document.getElementById('ws-lab-' + wsId.replace('ws-',''));
+            if (lab) { lab.classList.remove('dim'); lab.classList.add(cls); }
+          });
+        }
+      });
+    });
+    document.querySelector('.journey-wrap').scrollIntoView({behavior:'smooth', block:'start'});
+  }, 100);
+}
+const personas = {
+  defender: {
+    icon:'🛡️', name:'Identity Defender',
+    tagline:'"If AI can do this, what makes me valuable?"',
+    desc:'You bring deep expertise, strong ownership, and genuine investment in quality outcomes. When AI enters the picture, your instinct is to protect what makes your work meaningful — and that instinct is worth protecting. You\'re not resistant to technology. You\'re protecting meaning, value, and professional identity. The key strengths you bring to the AI era: deep craft expertise and institutional memory, high standards and quality ownership, the ability to distinguish meaningful work from mechanical work. You are a guardian of meaningful work — ensuring AI enhances human intelligence rather than replaces it.',
+    goal:'Your 30-day goal: Use AI to draft or summarize one recurring task. Reinvest the saved time into strengthening analysis, stakeholder relationships, or decision framing. Notice what opens up.',
+    sessions:[
+      {id:'ws-ai-conv', l:'Engaging in AI Conversations', t:'ai',
+       why:'Some things are irreducibly human — judgment, relationships, meaning, craft. This session gives you the language to say that out loud, in a room where people are still figuring out what AI can and can\'t do. You don\'t have to defend yourself. You just have to show up with what you know.'},
+      {id:'ws-ai-essentials', l:'AI Essentials + Know Your Tools', t:'ai',
+       why:'Before you can know what AI can\'t replace, you need to know what it actually does. This session walks you through the real tools, what they\'re capable of, and where they fall short — so your confidence in what you bring isn\'t based on fear of the unknown. It\'s based on knowing exactly what you\'re working with.'},
+      {id:'ws-review-ai', l:'Reviewing AI Outputs', t:'ai',
+       why:'This is the session that validates everything you\'ve been feeling. AI generates — you determine whether it\'s good enough. Knowing how to evaluate, critique, elevate, and manage AI output isn\'t a soft skill. It\'s the critical capability that makes everything trustworthy — and it\'s irreplaceable.'},
+      {id:'ws-map-workflow', l:'Map & Simplify a Workflow', t:'rs',
+       why:'Every workflow has steps that are ready to be simplified — and steps that need exactly what you bring. This session gives you the space to look at your own work honestly, map what each step actually requires, and find where your judgment matters most. That clarity is the foundation everything else builds on.'},
+      {id:'ws-nav-change', l:'Navigating Change', t:'tg',
+       why:'When the world shifts and the company shifts with it, it can feel like the ground under you is moving too. This session helps you understand your own relationship to change — the patterns you fall into, the strengths you carry through it, and how to stay grounded in who you are while still moving forward.'},
+      {id:'ws-leadership', l:'Leadership Style', t:'tg',
+       why:'Your expertise doesn\'t disappear in an AI era — it moves higher. This session helps you articulate what operating at the next level looks like for you: influencing up, leading without authority, bringing others along.'},
+      {id:'ws-build-ai', l:'Build AI Into Your Workflow', t:'ai',
+       why:'This is where you get to decide which steps AI handles and which stay human. An Identity Defender who designs their own AI integration builds something grounded in their own values — it meets your standard because you set it.'},
+      {id:'ws-ctw1', l:'Cross-Team Workflow Lab', t:'rs',
+       why:'When you work alongside people from other functions, your depth and institutional knowledge become visible in a new way. This lab gives you the chance to contribute what only you can contribute — and have others see it clearly.'},
+      {id:'ws-prioritize', l:'Prioritize What Matters', t:'tg',
+       why:'When you\'re protecting meaningful work, you also need to protect the time and energy to do it. This session helps you cut through the noise and defend what actually deserves your expertise.'},
+      {id:'ws-capstone', l:'ART Celebration Showcase', t:'co',
+       why:'This is where the year becomes visible. Sharing what you built, what shifted, and what you now know — that\'s not just reflection. It\'s a gift to everyone in the room who did the same hard work alongside you.'},
+    ],
+  },
+  skeptic: {
+    icon:'🔍', name:'Responsible Skeptic',
+    tagline:'"I need to know this is being used responsibly."',
+    desc:'You ask the questions others skip. Your concerns about data integrity, ethics, and reputational risk are not obstacles — they are the foundation of trustworthy AI adoption. You\'re not anti-AI. You\'re pro-accountability, and that is an asset the team needs. Key strengths you bring: critical thinking and risk awareness, governance sensitivity and long-term perspective, client trust and reputation protection. You are the team\'s ethics anchor — asking the questions that make trustworthy AI adoption possible.',
+    goal:'Your 30-day goal: Identify one process where AI reduces repetitive workload while maintaining human oversight for judgment and ethics. Optionally: draft a Responsible Use Checklist for your function.',
+    sessions:[
+      {id:'ws-ai-conv', l:'Engaging in AI Conversations', t:'ai',
+       why:'This session surfaces the conversations that responsible AI adoption actually requires — the ones most teams skip because they\'re uncomfortable. You\'ll find others in the room share your concerns. The goal is a shared vocabulary for honest, ongoing dialogue about AI in this team.'},
+      {id:'ws-ai-essentials', l:'AI Essentials + Know Your Tools', t:'ai',
+       why:'Before you can evaluate anything responsibly, you need to know what you\'re actually evaluating. This session gives you a clear picture of what\'s available and how each tool works — and that understanding only sharpens the questions you were already asking.'},
+      {id:'ws-review-ai', l:'Reviewing AI Outputs', t:'ai',
+       why:'This session gives you a practical process for reviewing AI outputs, understanding where AI gets it wrong, and knowing when human oversight is non-negotiable. Your rigor makes the whole team\'s work better.'},
+      {id:'ws-map-workflow', l:'Map & Simplify a Workflow', t:'rs',
+       why:'Responsible AI integration starts with understanding the process before the technology. This session maps real work — identifying friction points and simplification opportunities before introducing any AI. That\'s the design integrity you\'ve been asking for.'},
+      {id:'ws-nav-change', l:'Navigating Change', t:'tg',
+       why:'When change moves fast, the questions you raise matter most. This session gives you a framework for what you can influence — and how to stay grounded in your values while still moving forward with your team.'},
+      {id:'ws-build-ai', l:'Build AI Into Your Workflow', t:'ai',
+       why:'This is where your accountability lens is most valuable. As you design your own AI integration, you\'re the person in the room asking: what are we not thinking about? What could go wrong? That makes everyone\'s integration better.'},
+      {id:'ws-ctw1', l:'Cross-Team Workflow Lab', t:'rs',
+       why:'Cross-functional processes carry the highest risk of inconsistent AI use — and the greatest need for shared guardrails. Your voice in this lab ensures that when AI gets embedded into shared workflows, someone is asking the right questions about oversight and accountability.'},
+      {id:'ws-prioritize', l:'Prioritize What Matters', t:'tg',
+       why:'A Responsible Skeptic carries a lot — the weight of the questions, the concerns others aren\'t raising. This session helps you protect your own energy so you can keep showing up with the rigor this team needs.'},
+      {id:'ws-capstone', l:'ART Celebration Showcase', t:'co',
+       why:'This is where the year becomes visible. What you learned, what you questioned, and what you now stand behind — sharing that honestly is one of the most valuable things you can contribute to this community.'},
+    ],
+  },
+  purist: {
+    icon:'⚙️', name:'Skill Purist',
+    tagline:'"I don\'t want AI thinking for me."',
+    desc:'Your investment in craft and expertise is what makes your work stand out. You\'re asking a legitimate question: what happens to expertise when we stop exercising it? You\'re not anti-AI — you\'re protecting the quality bar. Key strengths: depth of expertise and analytical rigor, high standards and craft discipline, setting the bar for what excellent looks like. You are the person who raises the standard for what AI-assisted work can be — ensuring human judgment stays at the center of every deliverable.',
+    goal:'Your 30-day goal: Use AI to generate multiple first-draft options — then critique, refine, and elevate them using your expertise. Let AI accelerate iteration; let your judgment determine final output.',
+    sessions:[
+      {id:'ws-ai-essentials', l:'AI Essentials + Know Your Tools', t:'ai',
+       why:'The Skill Purist\'s advantage in this session is knowing exactly what to look for. Where does AI fall short on nuance? Where does it flatten craft? You\'ll come out with a clear-eyed understanding of what AI can generate — and a sharper sense of where your expertise is irreplaceable.'},
+      {id:'ws-review-ai', l:'Reviewing AI Outputs', t:'ai',
+       why:'This session was built for you. You evaluate, critique, and elevate — AI generates options. Your judgment is both the quality gate and the guardrail. You\'ll build a personal process for what excellent, responsible AI-assisted work looks like by your standards.'},
+      {id:'ws-map-workflow', l:'Map & Simplify a Workflow', t:'rs',
+       why:'Before you integrate AI into anything, you want to understand the process deeply. This session gives you that foundation — mapping what\'s actually happening before any technology enters the picture.'},
+      {id:'ws-nav-change', l:'Navigating Change', t:'tg',
+       why:'When everything around you is shifting, the commitment to craft is what stays constant. This session helps you understand your own relationship to change — and find the language to keep quality at the center of the conversation.'},
+      {id:'ws-build-ai', l:'Build AI Into Your Workflow', t:'ai',
+       why:'The most important design question in this session is: where do YOU stay? You map one real workflow and decide which steps AI handles — and which stay human. A Skill Purist who designs their own integration builds something that meets their own standard.'},
+      {id:'ws-leadership', l:'Leadership Style', t:'tg',
+       why:'Your standards don\'t just protect your own work — they set the bar. This session gives you the framework to make that influence explicit: how to operate at the next level, how to influence without authority, how to bring your craft discipline into how you lead.'},
+      {id:'ws-ctw1', l:'Cross-Team Workflow Lab', t:'rs',
+       why:'In a mixed-function room, quality standards often erode under pressure to move fast. Your presence raises the floor. When you ask "is this actually good?" out loud, other people feel permission to ask the same. That\'s not resistance — that\'s the team getting better.'},
+      {id:'ws-prioritize', l:'Prioritize What Matters', t:'tg',
+       why:'Protecting time for deep, quality work requires active prioritization. This session helps you build the structure to defend the kind of work you care about most.'},
+      {id:'ws-capstone', l:'ART Celebration Showcase', t:'co',
+       why:'You\'ll have a standard worth sharing. What does excellent AI-assisted work actually look like? What did you build or change that raised the bar? This is where that story gets told.'},
+    ],
+  },
+  overwhelmed: {
+    icon:'⏳', name:'Overwhelmed Operator',
+    tagline:'"I barely have time to do my job — I don\'t have time to learn this."',
+    desc:'You\'re not resistant to AI — you\'re operating at full capacity. Your reliability, consistency, and execution under pressure are genuine assets. The journey isn\'t asking you to rebuild everything at once. It\'s asking you to find one place where AI makes this week lighter. Key strengths: reliability and consistency under pressure, strong execution and institutional continuity, practical results-focused mindset. You demonstrate what sustainable AI adoption actually looks like — moving at a pace that holds is not a compromise, it\'s the model.',
+    goal:'Your 30-day goal: Use AI to draft or summarize one recurring email, report, or meeting recap this week. One task. This week. Then notice what that freed up.',
+    sessions:[
+      {id:'ws-ai-conv', l:'Engaging in AI Conversations', t:'ai',
+       why:'When you\'re already stretched thin, adding an AI conversation to the list can feel like one more thing. This session gives you the language to say what you actually need — more time, clearer expectations, honest dialogue — so the team can move forward together without anyone pretending they\'re fine.'},
+      {id:'ws-ai-essentials', l:'AI Essentials + Know Your Tools', t:'ai',
+       why:'This session\'s design principle is: one task, in your hands, before the session ends. Not a lecture. Not more to read. You leave with one thing you can use this week that takes less time than the old way. That\'s the entire ask.'},
+      {id:'ws-map-workflow', l:'Map & Simplify a Workflow', t:'rs',
+       why:'If you\'re drowning in work, this session finds where the water is actually coming in. You map one real process you own, identify the friction, and document one simplification. Sometimes the relief isn\'t AI — it\'s just seeing the broken step clearly for the first time.'},
+      {id:'ws-nav-change', l:'Navigating Change', t:'tg',
+       why:'Overwhelm is often compounded by ambiguity about what\'s actually being asked of you. This session helps you separate what you can control from what you can\'t — and that clarity alone reduces the weight.'},
+      {id:'ws-review-ai', l:'Reviewing AI Outputs', t:'ai',
+       why:'Once you start using AI, this session protects you from the risk of moving too fast. It gives you a simple, practical framework for knowing when AI output is good enough to use — saving time without sacrificing quality.'},
+      {id:'ws-leadership', l:'Leadership Style', t:'tg',
+       why:'When you\'re overwhelmed, you\'re often leading without clarity \u2014 absorbing ambiguity so others don\'t have to. This session helps you name your leadership style and identify one concrete shift that makes the load lighter, not just for you but for the people around you.'},
+      {id:'ws-build-ai', l:'Build AI Into Your Workflow', t:'ai',
+       why:'This is the session that can actually give you time back. You\'ll take one real workflow and integrate AI into it — not in theory, but in the session. The goal is a concrete change that makes your week lighter.'},
+      {id:'ws-ctw1', l:'Cross-Team Workflow Lab', t:'rs',
+       why:'Some of what\'s overwhelming you is friction that lives between teams, not within your own work. This lab addresses the shared processes that are draining everyone — and gives you dedicated time with the right people in the room to actually fix it.'},
+      {id:'ws-prioritize', l:'Prioritize What Matters', t:'tg',
+       why:'This session was designed for November — peak EOY pressure. You\'ll leave with an action plan to prioritize your work starting right away, not someday.'},
+    ],
+  },
+  accelerator: {
+    icon:'⚡', name:'Accelerator',
+    tagline:'"Why aren\'t we doing more of this?"',
+    desc:'You see possibility everywhere and you move fast. Your energy and technical fluency are a team accelerant — when channeled well. The most powerful thing you can do in this journey is build in a way that brings people with you. Key strengths: speed and technical fluency, creative experimentation and early pattern recognition, vision for what AI can unlock. You make the possible feel real for everyone around you — turning individual momentum into team capability.',
+    goal:'Your 30-day goal: Document one workflow improvement and share it with the team in a brief walkthrough. Measure time saved. Partner with a colleague earlier in their journey. If it works — submit it via the AI in Action Smartsheet Form.',
+    sessions:[
+      {id:'ws-ai-conv', l:'Engaging in AI Conversations', t:'ai',
+       why:'The Accelerator\'s risk is leaving people behind. This session helps you understand the range of relationships your teammates have with AI — so you can channel your energy in a way that brings others along rather than widening the gap.'},
+      {id:'ws-ai-essentials', l:'AI Essentials + Know Your Tools', t:'ai',
+       why:'You may already know some of this — but the value for you is in understanding where your teammates are starting from. This session gives you a shared foundation to build on together.'},
+      {id:'ws-map-workflow', l:'Map & Simplify a Workflow', t:'rs',
+       why:'Before you automate, map. Even Accelerators benefit from slowing down long enough to understand a process fully — it makes the AI integration you build afterward far more durable.'},
+      {id:'ws-review-ai', l:'Reviewing AI Outputs', t:'ai',
+       why:'Speed without quality is fragile. This session builds the review framework that makes speed sustainable — so when you share what you\'ve built with the team, the output stands up to scrutiny.'},
+      {id:'ws-nav-change', l:'Navigating Change', t:'tg',
+       why:'You thrive in change — but not everyone on your team does. This session helps you understand your own relationship to change and what it feels like for people moving at a different pace. That awareness is what turns momentum into leadership.'},
+      {id:'ws-build-ai', l:'Build AI Into Your Workflow', t:'ai',
+       why:'This is where your energy belongs. You\'ll build a real AI integration in the session — and the structure asks you to document it well enough that a colleague could replicate it. That\'s the highest-leverage move: turning your experiment into team capability.'},
+      {id:'ws-leadership', l:'Leadership Style', t:'tg',
+       why:'Moving fast is a strength — until it isn\'t. This session helps you understand how you lead, where you create momentum, and where you might be inadvertently leaving people behind. That self-awareness is what separates an Accelerator from a disruptor.'},
+      {id:'ws-ctw1', l:'Cross-Team Workflow Lab', t:'rs',
+       why:'Your biggest leverage in this session is not what you build — it\'s who you bring with you. The Accelerator\'s role in a cross-team lab is to make the possible feel accessible for people earlier in the journey. You don\'t lead from the front here. You lead from alongside.'},
+      {id:'ws-prioritize', l:'Prioritize What Matters', t:'tg',
+       why:'Even Accelerators burn out. This session helps you protect the energy that fuels your momentum — so the pace you set is one you can actually sustain.'},
+      {id:'ws-capstone', l:'ART Celebration Showcase', t:'co',
+       why:'You showed up, did the work, and made something lighter. This session is where that becomes visible — not as a presentation, but as proof that it was worth it.'},
+    ],
+  },
+};
+
+
+function toggleDesc(el) {
+  const desc = document.getElementById('pd-desc-text');
+  desc.classList.toggle('expanded');
+  el.textContent = desc.classList.contains('expanded') ? 'Read less ↑' : 'Read more ↓';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closePanel(); clearHighlights(); closeNotice(); }
+});
+
+renderCalendar();
+
+// Show journey overlay on first page load
+seenScreens.add('journey');
+document.getElementById('fv-journey').classList.remove('hidden');
+</script>
+</body>
+</html>
