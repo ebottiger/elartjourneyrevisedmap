@@ -1197,18 +1197,18 @@ body {
         <div class="month-tag">Month Three · Simplify</div>
       </div>
       <div class="ws-lab-row">
-        <div class="ws-card w-ai" id="ws-build-ai" onclick="openSession('build-ai')">
+        <div class="ws-card w-ai" id="ws-review-ai" onclick="openSession('review-ai')">
           <div class="ws-half">Workshop · #6 · Aug 6 · 60 min</div>
-          <div class="ws-name">Build AI Into Your Workflow</div>
+          <div class="ws-name">Reviewing AI Outputs</div>
           <div class="ws-meta">AI Leadership</div>
           <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
         </div>
         <div class="ws-lab-arrow">
           <div class="ws-lab-arrow-icon" style="background:rgba(202,28,104,0.25);color:rgba(202,28,104,0.9)">→</div>
         </div>
-        <div class="lab-card w-ai" id="ws-lab-build-ai" onclick="openSession('build-ai')">
+        <div class="lab-card w-ai" id="ws-lab-review-ai" onclick="openSession('review-ai')">
           <div class="lab-badge">Lab · Aug 13 · 30 min</div>
-          <div class="lab-name">Build AI Into Your Workflow Lab</div>
+          <div class="lab-name">Reviewing AI Outputs Lab</div>
           <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
         </div>
       </div>
@@ -1233,18 +1233,18 @@ body {
         <div class="month-tag">Month Four · Automate & AI</div>
       </div>
       <div class="ws-lab-row">
-        <div class="ws-card w-ai" id="ws-review-ai" onclick="openSession('review-ai')">
+        <div class="ws-card w-ai" id="ws-build-ai" onclick="openSession('build-ai')">
           <div class="ws-half">Workshop · #8 · Sep 3 · 60 min</div>
-          <div class="ws-name">Reviewing AI Outputs</div>
+          <div class="ws-name">Build AI Into Your Workflow</div>
           <div class="ws-meta">AI Leadership</div>
           <div class="ws-async-line">📹 Available async on Momenta — day after workshop</div>
         </div>
         <div class="ws-lab-arrow">
           <div class="ws-lab-arrow-icon" style="background:rgba(202,28,104,0.25);color:rgba(202,28,104,0.9)">→</div>
         </div>
-        <div class="lab-card w-ai" id="ws-lab-review-ai" onclick="openSession('review-ai')">
+        <div class="lab-card w-ai" id="ws-lab-build-ai" onclick="openSession('build-ai')">
           <div class="lab-badge">Lab · Sep 11 · 30 min</div>
-          <div class="lab-name">Reviewing AI Outputs Lab</div>
+          <div class="lab-name">Build AI Into Your Workflow Lab</div>
           <div class="lab-note">Prior to attending, join live workshop or complete async version</div>
         </div>
       </div>
@@ -1776,8 +1776,8 @@ const tlData = [
       { type:'oh',    color:'oh',    name:'ART Office Hours',                 date:'Thu Jul 23',     time:'11am–12pm PT · 2–3pm ET',       session:'oh-jul' },
       { type:'ws',    color:'tg',    name:'Navigating Change',                date:'Tue Jul 28',     time:'11am–12pm PT · 2–3pm ET',       session:'nav-change' },
       { type:'lab',   color:'tg',    name:'Navigating Change Lab',            date:'Thu Jul 30',     time:'9–9:30am PT · 12–12:30pm ET',   session:'nav-change' },
-      { type:'ws',    color:'ai',    name:'Build AI Into Your Workflow',      date:'Thu Aug 6',      time:'11am–12pm PT · 2–3pm ET',       session:'build-ai' },
-      { type:'lab',   color:'ai',    name:'Build AI Into Your Workflow Lab',  date:'Wed Aug 13',     time:'9–9:30am PT · 12–12:30pm ET',   session:'build-ai' },
+      { type:'ws',    color:'ai',    name:'Reviewing AI Outputs',             date:'Thu Aug 6',      time:'11am–12pm PT · 2–3pm ET',       session:'review-ai' },
+      { type:'lab',   color:'ai',    name:'Reviewing AI Outputs Lab',         date:'Wed Aug 13',     time:'9–9:30am PT · 12–12:30pm ET',   session:'review-ai' },
       
       
       { type:'oh',    color:'oh',    name:'ART Office Hours',                 date:'Thu Aug 27',     time:'11am–12pm PT · 2–3pm ET',       session:'oh-aug' },
@@ -1787,8 +1787,8 @@ const tlData = [
     halfLabel: 'September — December 2026',
     months: ['SEP','SEP','SEP','SEP','SEP','OCT','OCT','OCT','OCT','OCT','NOV','NOV','NOV','NOV','NOV','DEC'],
     nodes: [
-      { type:'ws',    color:'ai',    name:'Reviewing AI Outputs',             date:'Thu Sep 3',      time:'11am–12pm PT · 2–3pm ET',       session:'review-ai' },
-      { type:'lab',   color:'ai',    name:'Reviewing AI Outputs Lab',         date:'Fri Sep 11',     time:'9–9:30am PT · 12–12:30pm ET',   session:'review-ai' },
+      { type:'ws',    color:'ai',    name:'Build AI Into Your Workflow',      date:'Thu Sep 3',      time:'11am–12pm PT · 2–3pm ET',       session:'build-ai' },
+      { type:'lab',   color:'ai',    name:'Build AI Into Your Workflow Lab',  date:'Fri Sep 11',     time:'9–9:30am PT · 12–12:30pm ET',   session:'build-ai' },
       { type:'ws',    color:'ai-rs', name:'Cross-Team Workflow Lab 1',        date:'Tue Sep 15',     time:'11am–12pm PT · 2–3pm ET',       session:'ctw1' },
       { type:'oh',    color:'oh',    name:'ART Office Hours',                 date:'Thu Sep 24',     time:'11am–12pm PT · 2–3pm ET',       session:'oh-sep' },
       { type:'ws',    color:'tg',    name:'Leadership Style',                 date:'Thu Oct 1',      time:'11am–12pm PT · 2–3pm ET',       session:'leadership' },
@@ -2111,12 +2111,12 @@ const calMonths = [
       { label: 'Aug 3–7',   days: [
         { d: 3, hol: 'Civic Holiday (Canada)' },
         { d: 4 }, { d: 5 },
-        { d: 6, events: [{ name: 'Build AI Into Your Workflow', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai', session: 'build-ai' }] },
+        { d: 6, events: [{ name: 'Reviewing AI Outputs', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai', session: 'review-ai' }] },
         { d: 7 },
       ]},
       { label: 'Aug 10–14', days: [
         { d: 10 }, { d: 11 }, { d: 12 },
-        { d: 13, events: [{ name: 'Lab · Build AI Into Your Workflow', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-ai', session: 'build-ai' }] },
+        { d: 13, events: [{ name: 'Lab · Reviewing AI Outputs', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-ai', session: 'review-ai' }] },
         { d: 14 },
       ]},
       { label: 'Aug 17–21', days: [
@@ -2139,13 +2139,13 @@ const calMonths = [
       { label: 'Sep 1–4',   days: [
         { empty: true },
         { d: 1 }, { d: 2 },
-        { d: 3, events: [{ name: 'Reviewing AI Outputs', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai', session: 'review-ai' }] },
+        { d: 3, events: [{ name: 'Build AI Into Your Workflow', time: '11am–12pm PT · 2–3pm ET', color: 'ce-ai', session: 'build-ai' }] },
         { d: 4, hol: 'Labour Day (Canada)' },
       ]},
       { label: 'Sep 7–11',  days: [
         { d: 7, hol: 'Labor Day (USA)' },
         { d: 8 }, { d: 9 }, { d: 10 },
-        { d: 11, events: [{ name: 'Lab · Reviewing AI Outputs', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-ai', session: 'review-ai' }] },
+        { d: 11, events: [{ name: 'Lab · Build AI Into Your Workflow', time: '9–9:30am PT · 12–12:30pm ET', color: 'ce-lab-ai', session: 'build-ai' }] },
       ]},
       { label: 'Sep 14–18', days: [
         { d: 14 },
@@ -2381,7 +2381,7 @@ const sessions_data = {
     chips:['41% showed interest in Navigating Change','9 of you named change and uncertainty as your #1 impact area'],
   },
   'review-ai': {
-    num:'#8 · AI Leadership', title:'Reviewing AI Outputs', meta:'September · 60 min (followed by a 30 min lab session)',
+    num:'#6 · AI Leadership', title:'Reviewing AI Outputs', meta:'August · 60 min (followed by a 30 min lab session)',
     track:'AI Leadership', color:'#ca1c68',
     purpose:'You\'ll build the judgment to know when AI output is good enough — and when it isn\'t — because that discernment is yours, not AI\'s.',
     objective:'You\'ll have a clear process for auditing AI responses and know how to elevate them — shifting from task steward to strategic thinker.',
@@ -2401,7 +2401,7 @@ const sessions_data = {
     chips:['46% showed interest in Leadership Style','20% of you named leadership as your #1 impact area','17 of you named leadership skills in your own words'],
   },
   'build-ai': {
-    num:'#6 · AI Leadership', title:'Build AI Into Your Workflow', meta:'August · 60 min (followed by a 30 min lab session)',
+    num:'#8 · AI Leadership', title:'Build AI Into Your Workflow', meta:'September · 60 min (followed by a 30 min lab session)',
     track:'AI Leadership', color:'#ca1c68',
     purpose:'You\'ll take a real workflow you own and integrate AI into it — not in theory, but in the session, with your actual work.',
     objective:'You\'ll have the experience and know-how to add AI to any workflow you own.',
@@ -2448,7 +2448,7 @@ const sessions_data = {
     surveyTitle:'Built from 4 explicit requests',
     surveyText:'When we asked what skills you most want to build, 4 of you explicitly named agent-building. When we asked what slows you down, you directly flagged "limited by not having access to tools, MCP connectors, or API blocks." 67% selected Build AI Into Your Workflow (the prerequisite) — confirming a large group of survey respondents will be ready for this next step by October.',
     quotes:['"Building autonomous AI agents."','"How to build an AI bot. How to connect AI to my apps."','"When we\'re limited by not having access to tools, MCP connectors, or API blocks."'],
-    chips:['4 of you explicitly asked for agent-building in your own words','Positioned after Build AI Into Your Workflow so you have the foundation first'],
+    chips:['4 of you explicitly asked for agent-building in your own words','Positioned after Reviewing AI Outputs so you have the foundation first'],
   },
   prioritize: {
     num:'#12 · Talent Growth + Run Simple', title:'Prioritize What Matters', meta:'November · 60 min (followed by a 30 min lab session)',
@@ -2653,9 +2653,9 @@ const flipCards = {
   'ai-essentials':{ num:'#3', name:'AI Essentials + Know Your Tools', color:'fc-ai', ids:['ws-ai-essentials'] },
   'map-workflow':{ num:'#4', name:'Map & Simplify a Workflow', color:'fc-rs', ids:['ws-map-workflow'] },
   'nav-change':  { num:'#5', name:'Navigating Change', color:'fc-tg', ids:['ws-nav-change'] },
-  'review-ai':   { num:'#8', name:'Reviewing AI Outputs', color:'fc-ai', ids:['ws-review-ai'] },
+  'review-ai':   { num:'#6', name:'Reviewing AI Outputs', color:'fc-ai', ids:['ws-review-ai'] },
   'leadership':  { num:'#10', name:'Leadership Style', color:'fc-tg', ids:['ws-leadership'] },
-  'build-ai':    { num:'#6', name:'Build AI Into Your Workflow', color:'fc-ai', ids:['ws-build-ai'] },
+  'build-ai':    { num:'#8', name:'Build AI Into Your Workflow', color:'fc-ai', ids:['ws-build-ai'] },
   'ctw':         { num:'#9–13', name:'Cross-Team Workflow Labs 1, 2 & 3', color:'fc-ai-rs', ids:['ws-ctw1','ws-ctw2','ws-ctw3'] },
   'agents': { num:'#10', name:'Agents 101', color:'fc-ai', ids:[] },
   'prioritize':  { num:'#12', name:'Prioritize What Matters', color:'fc-tg-rs', ids:['ws-prioritize'] },
@@ -2663,7 +2663,7 @@ const flipCards = {
 };
 
 // Chronological order reference
-const chronoOrder = ['ai-conv','ai-essentials','map-workflow','nav-change','review-ai','leadership','build-ai','ctw','prioritize','capstone'];
+const chronoOrder = ['ai-conv','ai-essentials','map-workflow','nav-change','review-ai','build-ai','leadership','ctw','prioritize','capstone'];
 
 function sortChronological(sids) {
   return [...sids].sort((a, b) => chronoOrder.indexOf(a) - chronoOrder.indexOf(b));
